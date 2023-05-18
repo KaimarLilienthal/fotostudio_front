@@ -9,7 +9,7 @@
 <script>
 
 export default {
-    name: 'AboutView',
+    name: 'LoginView',
     methods: {
         login: function () {
             this.$http.get("/login", {
