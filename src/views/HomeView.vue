@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-      <header>
-          <h3>Tallinna Fotostuudiod</h3>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <h1>Fotostuudiod rentimiseks</h1>
-
-
-
-
-      </header>
+      <div class="container">
+          <div class="row mb-5">
+              <div class="col">
+                  <h1>Tallinna Fotostuudiod</h1>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <h3>Fotostuudiod rentimiseks</h3>
+              </div>
+          </div>
+      </div>
 
   </div>
 </template>

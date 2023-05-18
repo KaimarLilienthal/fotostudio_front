@@ -1,8 +1,39 @@
 <template>
-  <div class="about">
-      <button @click="login" type="submit">Test123</button>
-  </div>
-    <button type="button" class="btn btn-primary">Primary</button>
+
+
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <h1>Tallinna Fotostuudiod</h1>
+            </div>
+        </div>
+        <div class="row mb-5 justify-content-center">
+            <div class="col col-3">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Kasutajanimi</label>
+                    <input v-model="username" class="form-control" id="username" aria-describedby="emailHelp">
+
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Parool</label>
+                    <input v-model="password" type="password" class="form-control" id="password">
+                    <div id="emailHelp" class="form-text">Kasuta kindlasti tähti ja numbreid</div>
+                </div>
+                <button @click= "login" type="submit" class="btn btn-primary">Logi sisse</button>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+  <!--  <div class="about">-->
+<!--      <button @click="login" type="submit">Test123</button>-->
+<!--  </div>-->
+<!--    <button type="button" class="btn btn-primary">Primary</button>-->
 
 </template>
 
@@ -10,12 +41,20 @@
 
 export default {
     name: 'LoginView',
+    data(){
+        return {
+            username: '',
+            password:'',
+
+
+        }
+    },
     methods: {
         login: function () {
             this.$http.get("/login", {
                     params: {
-                        username: 'kaimar',
-                        password: '123'
+                        username: this.username,
+                        password: this.password
                     }
                 }
             ).then(response => {
