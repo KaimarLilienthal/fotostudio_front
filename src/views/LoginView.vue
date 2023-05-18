@@ -29,10 +29,6 @@
     </div>
 
 
-  <!--  <div class="about">-->
-  <!--      <button @click="login" type="submit">Test123</button>-->
-  <!--  </div>-->
-  <!--    <button type="button" class="btn btn-primary">Primary</button>-->
 
 </template>
 
@@ -44,16 +40,31 @@ export default {
     name: 'LoginView',
     data() {
         return {
+            message: '',
             username: '',
             password: '',
             loginResponse: {
                 userId: 0,
                 roleName: ''
+            },
+            errorResponse: {
+                message: '',
+                errorCode: 0
             }
         }
     },
     methods: {
-        login: function () {
+        login() {
+            this.message = ''
+            if (this.username === '' || this.password === '') {
+            this.message = 'Kõik väljad tuleb täita!'
+            alert('Kõik väljad tuleb täita!')
+            } else {
+                this.sendLoginRequest();
+            }
+
+        },
+        sendLoginRequest: function () {
             this.$http.get("/login", {
                     params: {
                         username: this.username,
@@ -63,12 +74,28 @@ export default {
             ).then(response => {
                 this.loginResponse = response.data
                 if (this.loginResponse.roleName === "studio") {
+                sessionStorage.setItem('userId', this.loginResponse.userId)
+                sessionStorage.setItem('roleName', this.loginResponse.roleName)
                     router.push({name:'userStudiosRoute'})
 
                 }
+                this.loginResponse = response.data
+                if (this.loginResponse.roleName === "admin") {
+                    sessionStorage.setItem('userId', this.loginResponse.userId)
+                    sessionStorage.setItem('roleName', this.loginResponse.roleName)
+                    router.push({name:'homeRoute'})
+
+                }
+
 
             }).catch(error => {
-                const errorResponseBody = error.response.data
+                this.errorResponse = error.response.data
+                if (this.errorResponse.errorCode ===111) {
+                    this.message =this.errorResponse.message
+                    alert(this.errorResponse.message)
+                } else {
+                    router.push({name: 'errorRoute'})
+                }
             })
         },
     }

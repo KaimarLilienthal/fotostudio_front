@@ -4,6 +4,7 @@ import LoginView from "@/views/LoginView.vue";
 import MyStudiosView from "@/views/UserStudiosView.vue";
 import StudiosView from "@/views/StudiosView.vue";
 import UserStudiosView from "@/views/UserStudiosView.vue";
+import ErrorView from "@/views/ErrorView.vue";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/studios',
     name: 'studiosRoute',
     component: StudiosView
+  },
+  {
+    path: '/error',
+    name: 'errorRoute',
+    component: ErrorView
   }
 
 ]
