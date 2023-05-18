@@ -1,8 +1,11 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Pealeht</router-link> |
+      <router-link to="/">Stuudio ruumid</router-link> |
+    <router-link to="/about">Otsi stuudioid</router-link> |
+      <router-link to="/about">Stuudio logi sisse</router-link>
   </nav>
+
   <router-view/>
 </template>
 
@@ -28,3 +31,5 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script setup>
+</script>
