@@ -46,6 +46,40 @@
 
 <script>
 export default {
-    name: "MyStudiosView"
+    name: "UserStudiosView",
+
+
+    data() {
+        return {
+            studios: [
+                {
+                    studioId: 0,
+                    studioName: '',
+                    address: '',
+                    imageData: ''
+                }
+            ]
+            
+            
+
+
+        }
+    },
+    methods:{
+        getStudios: function () {
+            this.$http.get("/user-studios", {
+                    params: {
+                        userId: this.someDataBlockVariable1
+                    }
+                }
+            ).then(response => {
+                const responseBody = response.data
+
+            }).catch(error => {
+                const errorResponseBody = error.response.data
+            })
+        },
+    }
+
 }
 </script>

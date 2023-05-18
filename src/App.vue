@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Pealeht</router-link> |
       <router-link to="/">Stuudio ruumid</router-link> |
-      <router-link to="/my-studio">Minu stuudiod</router-link> |
+      <router-link to="/user-studios">Minu stuudiod</router-link> |
       <router-link to="/login">Stuudio logi sisse</router-link>
   </nav>
 

@@ -20,7 +20,7 @@
                     <input v-model="password" type="password" class="form-control" id="password">
                     <div id="emailHelp" class="form-text">Kasuta kindlasti tähti ja numbreid</div>
                 </div>
-                <button @click= "login" type="submit" class="btn btn-primary">Logi sisse</button>
+                <button @click="login" type="submit" class="btn btn-primary">Logi sisse</button>
 
 
             </div>
@@ -29,24 +29,27 @@
     </div>
 
 
-
   <!--  <div class="about">-->
-<!--      <button @click="login" type="submit">Test123</button>-->
-<!--  </div>-->
-<!--    <button type="button" class="btn btn-primary">Primary</button>-->
+  <!--      <button @click="login" type="submit">Test123</button>-->
+  <!--  </div>-->
+  <!--    <button type="button" class="btn btn-primary">Primary</button>-->
 
 </template>
 
 <script>
 
+import router from "@/router";
+
 export default {
     name: 'LoginView',
-    data(){
+    data() {
         return {
             username: '',
-            password:'',
-
-
+            password: '',
+            loginResponse: {
+                userId: 0,
+                roleName: ''
+            }
         }
     },
     methods: {
@@ -58,7 +61,12 @@ export default {
                     }
                 }
             ).then(response => {
-                const responseBody = response.data
+                this.loginResponse = response.data
+                if (this.loginResponse.roleName === "studio") {
+                    router.push({name:'userStudiosRoute'})
+
+                }
+
             }).catch(error => {
                 const errorResponseBody = error.response.data
             })
