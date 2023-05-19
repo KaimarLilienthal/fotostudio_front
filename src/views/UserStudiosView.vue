@@ -20,18 +20,25 @@
                     <tr>
                         <th scope="col">Stuudio</th>
                         <th scope="col">Aadress</th>
-                        <th scope="col">Pilt</th>
-                        <th scope="col">Nupp</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">Tulbi Fotostuudio</th>
-                        <td>Tulbi 12</td>
-                        <td><img src="" alt=""></td>
-                        <td><font-awesome-icon :icon="['fas', 'pen-to-square']" /></td>
+                    <tr v-for="studio in studios" :key="studio.studioId">
+                        <th>{{ studio.studioName }}</th>
+                        <td>{{ studio.address }}</td>
+                        <td>
+                            <div class="img-wrapper">
+                                <StudioImage :image-data="studio.imageData"/>
+                            </div>
+                        </td>
+                        <td>
+                            <font-awesome-icon :icon="['fas', 'pen-to-square']"/>
+                        </td>
                     </tr>
-                 
+
+
                     </tbody>
                 </table>
 
@@ -45,13 +52,18 @@
 </template>
 
 <script>
+import router from "@/router";
+import StudioImage from "@/components/StudioImage.vue";
+
 export default {
     name: "UserStudiosView",
+    components: {StudioImage},
 
 
     data() {
         return {
 
+            userId: sessionStorage.getItem('userId'),
             studios: [
                 {
                     studioId: 0,
@@ -60,26 +72,28 @@ export default {
                     imageData: ''
                 }
             ]
-            
-            
 
 
         }
     },
-    methods:{
+    methods: {
         getStudios: function () {
-            this.$http.get("/user-studios", {
+            this.$http.get("/studios/user-studios", {
                     params: {
-                        userId: this.someDataBlockVariable1
+                        userId: this.userId
                     }
                 }
             ).then(response => {
-                const responseBody = response.data
+                this.studios = response.data
 
             }).catch(error => {
+                router.push({name: 'errorRoute'})
                 const errorResponseBody = error.response.data
             })
         },
+    },
+    beforeMount() {
+        this.getStudios()
     }
 
 }

@@ -1,0 +1,4 @@
+.img-wrapper img {
+    max-width: 100px; /* Adjust the width as per your requirement */
+    height: auto;
+}

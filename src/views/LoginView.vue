@@ -29,7 +29,6 @@
     </div>
 
 
-
 </template>
 
 <script>
@@ -57,8 +56,8 @@ export default {
         login() {
             this.message = ''
             if (this.username === '' || this.password === '') {
-            this.message = 'Kõik väljad tuleb täita!'
-            alert('Kõik väljad tuleb täita!')
+                this.message = 'Kõik väljad tuleb täita!'
+                alert('Kõik väljad tuleb täita!')
             } else {
                 this.sendLoginRequest();
             }
@@ -73,25 +72,22 @@ export default {
                 }
             ).then(response => {
                 this.loginResponse = response.data
-                if (this.loginResponse.roleName === "studio") {
                 sessionStorage.setItem('userId', this.loginResponse.userId)
                 sessionStorage.setItem('roleName', this.loginResponse.roleName)
-                    router.push({name:'userStudiosRoute'})
 
-                }
-                this.loginResponse = response.data
-                if (this.loginResponse.roleName === "admin") {
-                    sessionStorage.setItem('userId', this.loginResponse.userId)
-                    sessionStorage.setItem('roleName', this.loginResponse.roleName)
-                    router.push({name:'homeRoute'})
 
+                if (this.loginResponse.roleName === "studio") {
+                    router.push({name: 'userStudiosRoute'})
+                } else {
+                    // todo: vaja suunata adminni teele
+                    router.push({name: 'homeRoute'})
                 }
 
 
             }).catch(error => {
                 this.errorResponse = error.response.data
-                if (this.errorResponse.errorCode ===111) {
-                    this.message =this.errorResponse.message
+                if (this.errorResponse.errorCode === 111) {
+                    this.message = this.errorResponse.message
                     alert(this.errorResponse.message)
                 } else {
                     router.push({name: 'errorRoute'})
