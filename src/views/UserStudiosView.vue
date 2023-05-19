@@ -8,7 +8,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button type="button" class="btn btn-primary">Lisa stuudiod</button>
+                <button @click="navigateToStudioGeneralView" type="button" class="btn btn-primary">Lisa stuudiod</button>
             </div>
 
         </div>
@@ -91,6 +91,9 @@ export default {
                 const errorResponseBody = error.response.data
             })
         },
+        navigateToStudioGeneralView(){
+            router.push({name: 'studioGeneralRoute'})
+        }
     },
     beforeMount() {
         this.getStudios()
