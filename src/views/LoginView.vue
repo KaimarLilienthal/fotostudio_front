@@ -7,7 +7,7 @@
                 <h1>Tallinna Fotostuudiod</h1>
             </div>
         </div>
-        <div class="row mb-5 justify-content-center">
+        <div @keydown.enter="login" class="row mb-5 justify-content-center">
             <div class="col col-3">
 
                 <div class="mb-3">
@@ -21,6 +21,12 @@
                     <div id="emailHelp" class="form-text">Kasuta kindlasti tähti ja numbreid</div>
                 </div>
                 <button @click="login" type="submit" class="btn btn-primary">Logi sisse</button>
+                <div class="card-body mt-1" >
+                    <a href="login/reset" class="card-link">Parool Ununes</a>
+                    <a href="login/register" class="card-link m-3">Registreeru</a>
+                </div>
+
+
 
 
             </div>

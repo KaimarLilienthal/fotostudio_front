@@ -5,6 +5,8 @@ import UserStudiosView from "@/views/UserStudiosView.vue";
 import StudiosView from "@/views/StudiosView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import StudioGeneralView from "@/views/StudioGeneralView.vue";
+import ResetView from "@/views/ResetView.vue";
+import RegisterView from "@/views/RegisterView.vue";
 
 const routes = [
   {
@@ -36,6 +38,16 @@ const routes = [
     path: '/studio/general',
     name: 'studioGeneralRoute',
     component: StudioGeneralView
+  },
+  {
+    path: '/login/reset',
+    name: 'resetRoute',
+    component: ResetView
+  },
+  {
+    path: '/login/register',
+    name: 'registerRoute',
+    component: RegisterView
   }
 
 ]
