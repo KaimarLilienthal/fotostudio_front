@@ -109,6 +109,7 @@ export default {
     components: {DistrictDropdown, StudioImage},
     data() {
         return {
+            // studioId: Number(useRoute().query.studioId),
             successMessage: '',
             selectedDistrictId: 0,
             userId: sessionStorage.getItem('userId'),
@@ -142,8 +143,10 @@ export default {
         postAtmLocation() {
             this.$http.post('/studios/general', this.studio
             ).then(response => {
-                alert('õnnestus')
-            // todo: Kood ei jõua siia, kuidas kasutada debuggerit???
+                alert('Stuudio lisamine õnnestus')
+                router.push({name: 'userStudiosRoute'})
+
+
             }).catch(error => {
                 this.errorResponse = error.response.data
                 if (this.errorResponse.errorCode === 555) {

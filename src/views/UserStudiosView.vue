@@ -34,7 +34,7 @@
                             </div>
                         </td>
                         <td>
-                            <font-awesome-icon :icon="['fas', 'pen-to-square']"/>
+                            <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
                     </tr>
 
@@ -92,6 +92,7 @@ export default {
             })
         },
         navigateToStudioGeneralView(){
+            // router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
             router.push({name: 'studioGeneralRoute'})
         }
     },
