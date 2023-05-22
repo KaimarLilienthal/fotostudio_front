@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
     name: "RegisterView",
     data() {
@@ -68,6 +70,7 @@ export default {
 
                 this.$http.post("/user", this.newUser
                 ).then(response => {
+                        router.push({name: 'loginRoute'})
                     // todo: õnneliku regamise korral viskab login lehele,  et sealt salvestada,
                     // todo: sessionstoragesse id ja role.
 

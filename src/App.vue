@@ -7,12 +7,51 @@
   <nav>
     <router-link to="/">Pealeht</router-link> |
       <router-link to="/studios">Stuudio ruumid</router-link> |
-      <router-link to="/user-studios">Minu stuudiod</router-link> |
-      <router-link to="/login">Stuudio logi sisse</router-link>
+      <router-link v-if="userId === null" to="/login">Stuudio logi sisse</router-link>
+
+
+
+      <template v-else>
+          <router-link to="/user-studios">Minu stuudiod</router-link>
+          |
+
+
+          <router-link to="#" @click="handleLogout">Logi välja</router-link>
+      </template>
+
+
+
+
+
   </nav>
 
-  <router-view/>
+    <router-view @event-update-nav-menu="updateNavMenu"/>
 </template>
+
+<script>
+import router from "@/router";
+
+export default {
+    data() {
+        return {
+
+            userId: sessionStorage.getItem('userId'),
+            roleName: sessionStorage.getItem('roleName')
+        }
+    },
+    methods: {
+        updateNavMenu() {
+            this.userId = sessionStorage.getItem('userId')
+            this.roleName = sessionStorage.getItem('roleName')
+        },
+        handleLogout() {
+            sessionStorage.clear()
+            router.push({name: 'homeRoute'})
+            this.updateNavMenu()
+        },
+    }
+}
+</script>
 
 <style>
 #app {
@@ -37,7 +76,3 @@ nav a.router-link-exact-active {
 }
 
 </style>
-<script>
-
-
-</script>
