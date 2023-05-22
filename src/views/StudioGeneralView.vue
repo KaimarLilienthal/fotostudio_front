@@ -102,12 +102,14 @@
 <script>
 import StudioImage from "@/components/StudioImage.vue";
 import DistrictDropdown from "@/components/DistrictDropdown.vue";
+import router from "@/router";
 
 export default {
     name: "StudioGeneralView",
     components: {DistrictDropdown, StudioImage},
     data() {
         return {
+            successMessage: '',
             selectedDistrictId: 0,
             userId: sessionStorage.getItem('userId'),
             studio: {
@@ -119,6 +121,10 @@ export default {
                 address: '',
                 longtitude: 0,
                 latitude: 0
+            },
+            errorResponse: {
+                message: '',
+                errorCode: 0
             }
 
 
@@ -136,11 +142,16 @@ export default {
         postAtmLocation() {
             this.$http.post('/studios/general', this.studio
             ).then(response => {
-                // this.successMessage = 'Pangaautomaadi asukoht "' + this.atmLocation.locationName + '" lisatud :)'
-                // this.resetAllFields();
+                alert('õnnestus')
+            // todo: Kood ei jõua siia, kuidas kasutada debuggerit???
             }).catch(error => {
-                // this.errorResponse = error.response.data
-                alert('post not sucessfull')
+                this.errorResponse = error.response.data
+                if (this.errorResponse.errorCode === 555) {
+                    this.message = this.errorResponse.message
+                    alert(this.errorResponse.message)
+                } else {
+                    router.push({name: 'errorRoute'})
+                }
             })
         },
     }

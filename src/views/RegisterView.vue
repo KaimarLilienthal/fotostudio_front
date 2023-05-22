@@ -53,11 +53,21 @@ export default {
                 username: '',
                 password: '',
                 email: '',
+            },
+            errorResponse: {
+                message: '',
+                errorCode: 0
             }
         }
     },
     methods: {
-        sign() {
+        resetAllFields: function () {
+            this.password1 = ''
+            this.newUser.email = ''
+            this.newUser.password = ''
+            this.newUser.username = ''
+            this.terms = false
+        }, sign() {
             if (this.newUser.email == '' || this.newUser.username == '' || this.newUser.password == '' || this.password1 == '') {
                 alert('Palun täida kõik väljad!')
             } else if (this.newUser.password != this.password1) {
@@ -70,14 +80,17 @@ export default {
 
                 this.$http.post("/user", this.newUser
                 ).then(response => {
+                    alert('Kasutaja registreeritud, logi sisse')
                         router.push({name: 'loginRoute'})
-                    // todo: õnneliku regamise korral viskab login lehele,  et sealt salvestada,
-                    // todo: sessionstoragesse id ja role.
-
-                    // const responseBody = response.data
                 }).catch(error => {
-                    // const errorResponseBody = error.response.data
-                    alert('post not sucessfull')
+                    this.errorResponse = error.response.data
+                    if (this.errorResponse.errorCode === 444) {
+                        this.message = this.errorResponse.message
+                        alert(this.errorResponse.message)
+                        this.resetAllFields();
+                    } else {
+                        router.push({name: 'errorRoute'})
+                    }
                 })
 
             }
