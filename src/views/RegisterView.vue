@@ -7,18 +7,19 @@
         </div>
         <div @keydown.enter="sign" class="row mb-5 justify-content-center">
             <div class="col col-3">
-                <form @submit.prevent="sign">
+
+                <form @submit.prevent="sign" >
                     <div class="mb-3">
                         <label for="exampleInputUserName" class="form-label">Kasutajanimi</label>
-                        <input v-model="username" type="username" class="form-control">
+                        <input v-model="newUser.username" type="username" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail" class="form-label">E-mail</label>
-                        <input v-model="email" type="email" class="form-control" id="exampleInputEmail">
+                        <input v-model="newUser.email" type="email" class="form-control" id="exampleInputEmail">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Salasõna</label>
-                        <input v-model="password" type="password" class="form-control" id="exampleInputPassword1">
+                        <input v-model="newUser.password" type="password" class="form-control" id="exampleInputPassword1">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword2" class="form-label">Salasõna uuesti </label>
@@ -27,7 +28,7 @@
                     <div class="mb-3 form-check">
                         <input v-model="terms" type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">
-                            Olen <a @click="conditions" href="#">kasutajatingimustega</a> nõus
+                            Nõustun <a @click="conditions" href="#">kasutajatingimustega</a>
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Registreeru</button>
@@ -44,9 +45,6 @@ export default {
     data() {
         return {
             terms: false,
-            username: '',
-            email: '',
-            password: '',
             password1: '',
             newUser: {
                 roleId: 2,
@@ -59,15 +57,25 @@ export default {
     },
     methods: {
         sign() {
-            if (this.email == '' || this.username == '' || this.password == '' || this.password1 == '') {
+            if (this.newUser.email == '' || this.newUser.username == '' || this.newUser.password == '' || this.password1 == '') {
                 alert('Palun täida kõik väljad!')
-            } else if (this.password != this.password1) {
-                this.password = ''; // Clear the password field
+            } else if (this.newUser.password != this.password1) {
+                this.newUser.password = ''; // Clear the password field
                 this.password1 = ''; // Clear the password confirmation field
                 alert('Paroolid ei ühti!')
             } else if (this.terms == false) {
                 alert('Nõustu kasutajatingimustega!')
-            } else this.registerNewUser
+            } else {
+
+                this.$http.post("/user/new", this.newUser
+                ).then(response => {
+                    // const responseBody = response.data
+                }).catch(error => {
+                    // const errorResponseBody = error.response.data
+                    alert('post not sucessfull')
+                })
+
+            }
         },
         conditions() {
             alert('Kasutustingimused\n' +
@@ -99,16 +107,7 @@ export default {
                 '\n' +
                 'Terapeut.ee jätab endale õiguse muuta praktiku profiil teatud perioodiks passiivseks (mitte nähtavaks), kui selgub, et praktik on eksinud siin väljatoodud kasutajatingimuste vastu.')
         },
-        registerNewUser: function () {
-            this.$http.post("/user/new", this.newUser
-            ).then(response => {
-                // const responseBody = response.data
-            }).catch(error => {
-                // const errorResponseBody = error.response.data
-                alert('post not sucessfull')
-            })
 
-        },
 
 
     }
