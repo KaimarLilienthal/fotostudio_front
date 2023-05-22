@@ -8,7 +8,7 @@
         <div @keydown.enter="sign" class="row mb-5 justify-content-center">
             <div class="col col-3">
 
-                <form @submit.prevent="sign">
+                <form @submit.prevent="sign" >
                     <div class="mb-3">
                         <label for="exampleInputUserName" class="form-label">Kasutajanimi</label>
                         <input v-model="newUser.username" type="username" class="form-control">
@@ -19,8 +19,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Salasõna</label>
-                        <input v-model="newUser.password" type="password" class="form-control"
-                               id="exampleInputPassword1">
+                        <input v-model="newUser.password" type="password" class="form-control" id="exampleInputPassword1">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword2" class="form-label">Salasõna uuesti </label>
@@ -45,28 +44,16 @@ export default {
     name: "RegisterView",
     data() {
         return {
-            successMessage: '',
             terms: false,
             password1: '',
             newUser: {
                 username: '',
                 password: '',
                 email: '',
-            },
-            errorResponse: {
-                message: '',
-                errorCode: 0
             }
         }
     },
     methods: {
-        resetAllFields() {
-            this.password1 = ''
-            this.newUser.username = ''
-            this.newUser.password = ''
-            this.newUser.email = ''
-        },
-
         sign() {
             if (this.newUser.email == '' || this.newUser.username == '' || this.newUser.password == '' || this.password1 == '') {
                 alert('Palun täida kõik väljad!')
@@ -80,18 +67,10 @@ export default {
 
                 this.$http.post("/user", this.newUser
                 ).then(response => {
-                    this.successMessage = 'Kasutaja lisatud'
-                    alert(this.successMessage)
-                    this.resetAllFields();
                     // const responseBody = response.data
                 }).catch(error => {
-                    this.errorResponse = error.response.data
-                    if (this.errorResponse.errorCode === 444) {
-                        alert(this.errorResponse.message)
-
-                    } else {
-                        router.push({name: 'errorRoute'})
-                    }
+                    // const errorResponseBody = error.response.data
+                    alert('post not sucessfull')
                 })
 
             }
@@ -126,6 +105,7 @@ export default {
                 '\n' +
                 'Terapeut.ee jätab endale õiguse muuta praktiku profiil teatud perioodiks passiivseks (mitte nähtavaks), kui selgub, et praktik on eksinud siin väljatoodud kasutajatingimuste vastu.')
         },
+
 
 
     }

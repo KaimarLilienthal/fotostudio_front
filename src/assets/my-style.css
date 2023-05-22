@@ -2,3 +2,10 @@
     max-width: 100px; /* Adjust the width as per your requirement */
     height: auto;
 }
+
+body{
+    background-image: url("4196050.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+}
