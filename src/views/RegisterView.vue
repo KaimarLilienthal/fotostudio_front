@@ -44,6 +44,7 @@ export default {
     name: "RegisterView",
     data() {
         return {
+
             terms: false,
             password1: '',
             newUser: {
@@ -67,6 +68,9 @@ export default {
 
                 this.$http.post("/user", this.newUser
                 ).then(response => {
+                    // todo: õnneliku regamise korral viskab login lehele,  et sealt salvestada,
+                    // todo: sessionstoragesse id ja role.
+
                     // const responseBody = response.data
                 }).catch(error => {
                     // const errorResponseBody = error.response.data
