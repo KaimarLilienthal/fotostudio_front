@@ -47,11 +47,9 @@ export default {
             terms: false,
             password1: '',
             newUser: {
-                roleId: 2,
                 username: '',
                 password: '',
                 email: '',
-                status: 'A',
             }
         }
     },
@@ -67,7 +65,7 @@ export default {
                 alert('Nõustu kasutajatingimustega!')
             } else {
 
-                this.$http.post("/user/new", this.newUser
+                this.$http.post("/user", this.newUser
                 ).then(response => {
                     // const responseBody = response.data
                 }).catch(error => {

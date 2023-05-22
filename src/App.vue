@@ -1,4 +1,9 @@
+<head>
+<link ref="stylesheet" href="src/assets/my-style.css">
+</head>
+
 <template>
+
   <nav>
     <router-link to="/">Pealeht</router-link> |
       <router-link to="/studios">Stuudio ruumid</router-link> |
@@ -15,7 +20,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
 }
 
 nav {
@@ -24,12 +29,15 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #fff;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #ffc107;
 }
+
 </style>
-<script setup>
+<script>
+
+
 </script>
