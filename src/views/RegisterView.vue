@@ -47,11 +47,13 @@ export default {
             terms: false,
             password1: '',
             newUser: {
-                roleId: 2,
                 username: '',
                 password: '',
                 email: '',
-                status: 'A',
+            },
+            errorResponse: {
+                message: '',
+                errorCode: 0
             }
         }
     },
@@ -67,12 +69,18 @@ export default {
                 alert('Nõustu kasutajatingimustega!')
             } else {
 
-                this.$http.post("/user/new", this.newUser
+                this.$http.post("/user", this.newUser
                 ).then(response => {
+
                     // const responseBody = response.data
                 }).catch(error => {
-                    // const errorResponseBody = error.response.data
-                    alert('post not sucessfull')
+                    this.errorResponse = error.response.data
+                    if (this.errorResponse.errorCode === 444) {
+                        alert(this.errorResponse.message)
+
+                    } else {
+                        router.push({name: 'errorRoute'})
+                    }
                 })
 
             }
