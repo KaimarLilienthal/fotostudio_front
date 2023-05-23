@@ -8,7 +8,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button @click="navigateToStudioGeneralView" type="button" class="btn btn-primary">Lisa stuudiod</button>
+                <button @click="navigateToStudioGeneralView(0)" type="button" class="btn btn-primary">Lisa stuudiod</button>
             </div>
 
         </div>
@@ -22,6 +22,7 @@
                         <th scope="col">Aadress</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,9 +34,14 @@
                                 <StudioImage :image-data="studio.imageData"/>
                             </div>
                         </td>
-                        <td>
+                        <td>{{studio.studioId}}
                             <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
+                        <td>
+                            <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
+                        </td>
+
+
                     </tr>
 
 
@@ -88,12 +94,11 @@ export default {
 
             }).catch(error => {
                 router.push({name: 'errorRoute'})
-                const errorResponseBody = error.response.data
+
             })
         },
-        navigateToStudioGeneralView(){
-            // router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
-            router.push({name: 'studioGeneralRoute'})
+        navigateToStudioGeneralView(studioId){
+            router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
         }
     },
     beforeMount() {
