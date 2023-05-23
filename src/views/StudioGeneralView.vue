@@ -94,7 +94,9 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-primary">Muuda andmed</button>
+                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-primary">Muuda
+                            andmed
+                        </button>
                         <button v-else @click="postNewStudio" type="button" class="btn btn-primary">Lisa
                             stuudio
                         </button>
@@ -169,7 +171,7 @@ export default {
             })
         },
 
-         getStudioData: function () {
+        getStudioData: function () {
             this.$http.get("/studios/user-studio", {
                     params: {
                         studioId: this.studioId,
@@ -184,7 +186,11 @@ export default {
 
         },
         putChangeStudioData: function () {
-            this.$http.put("/studios/change-user-studio", this.studio
+            this.$http.put("/studios/change-user-studio", this.studio, {
+                    params: {
+                        studioId: this.studioId
+                    }
+                }
             ).then(response => {
                 alert('Stuudio muutmine õnnestus')
                 router.push({name: 'userStudiosRoute'})
