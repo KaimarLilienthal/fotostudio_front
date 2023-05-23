@@ -8,7 +8,8 @@
           </div>
           <div class="row">
               <div class="col">
-                  <h3>Fotostuudiod rentimiseks</h3>
+                  <h3 @click="toStudioRooms" >Fotostuudiod rentimiseks</h3>
+
               </div>
           </div>
       </div>
@@ -19,7 +20,17 @@
 <script>
 // @ is an alias to /src
 
+import router from "@/router";
+
 export default {
-  name: 'HomeView'
+  name: 'HomeView',
+    methods: {
+        toStudioRooms(){
+            alert('töötab')
+            router.push({name: 'userStudiosRoute'})
+        }
+    }
 }
+
+
 </script>
