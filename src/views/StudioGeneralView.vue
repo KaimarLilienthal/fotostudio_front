@@ -1,9 +1,8 @@
 <template>
 
-
     <div class="container text-center">
 
-        <div class="row justify-content-center">
+        <div class="row mb-5 justify-content-center">
             <div class="col col-4">
                 <div class="input-group mb-3">
                     <input v-model="studio.studioName" type="text" class="form-control"
@@ -15,7 +14,7 @@
     </div>
     <div class="container text-center">
 
-        <div class="row">
+        <div class="row mb-5">
             <div class="col">
                 <div class="img-wrapper1">
                     <StudioImage :image-data="studio.imageData"/>
@@ -26,7 +25,7 @@
     </div>
     <div class="container text-center">
 
-        <div class="row">
+        <div class="row mb-5">
             <div class="col">
                 <button type="button" class="btn btn-primary">Otsi pilt</button>
             </div>
@@ -35,8 +34,8 @@
     </div>
     <div class="container text-center">
 
-        <div class="row justify-content-center">
-            <div class="col col-6">
+        <div class="row mb-5 justify-content-center">
+            <div class="col col-5">
                 <div class="input-group mb-3">
                     <span v-if="isEdit" class="input-group-text" id="basic-addon3">Url</span>
                     <span v-else class="input-group-text" id="basic-addon3">Lisa Url</span>
@@ -50,15 +49,15 @@
     </div>
     <div class="container text-center">
 
-        <div class="row">
-            <div class="col">
+        <div class="row mb-5 justify-content-center">
+            <div class="col col-3">
                 <label for="basic-url" class="form-label">Aadress</label>
                 <div class="input-group mb-3">
                     <input v-model="studio.address" type="text" class="form-control"
                            placeholder="Sisesta stuudio aadress" aria-describedby="basic-addon1">
                 </div>
             </div>
-            <div class="col">
+            <div class=" col col-2">
                 <label for="basic-url" class="form-label">Longtitude</label>
 
                 <div class="input-group mb-3">
@@ -71,13 +70,13 @@
     </div>
     <div class="container text-center">
 
-        <div class="row">
-            <div class="col">
+        <div class="row mb-5 justify-content-center">
+            <div class="col col-3">
                 <label for="basic-url" class="form-label">Vali linnaosa</label>
 
                 <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
             </div>
-            <div class="col">
+            <div class="col col-2">
                 <label for="basic-url" class="form-label">Latitude</label>
                 <div class="input-group mb-3">
 

@@ -63,12 +63,13 @@ export default {
 }
 
 nav {
-  padding: 30px;
+  padding: 50px;
 }
 
 nav a {
   font-weight: bold;
   color: #fff;
+    font-size: large;
 }
 
 nav a.router-link-exact-active {
