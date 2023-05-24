@@ -38,7 +38,7 @@
                             <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
                         <td>
-                            <font-awesome-icon @click="studioDelete(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
+                            <font-awesome-icon @click="sendStudioDeleteRequest(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
                         </td>
 
 
@@ -101,10 +101,15 @@ export default {
         navigateToStudioGeneralView(studioId){
             router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
         },
-        studioDelete: function () {
-            this.$http.delete("/my-studio-delete")
+        sendStudioDeleteRequest: function (studioId) {
+            this.$http.delete("/studios/my-studio-delete", {
+                params: {
+                    studioId: studioId
+                }
+            })
                 .then(response => {
                     alert('Stuudio kustutatud!')
+                    window.location.reload();
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data

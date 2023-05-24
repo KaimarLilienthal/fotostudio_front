@@ -24,14 +24,16 @@
 
 
   </nav>
-
+    <LogoutModal ref="logoutModalRef" @event-update-nav-menu="updateNavMenu"/>
     <router-view @event-update-nav-menu="updateNavMenu"/>
 </template>
 
 <script>
-import router from "@/router";
 
+import Modal from "@/components/modal/Modal.vue";
+import LogoutModal from "@/components/modal/LogoutModal.vue";
 export default {
+    components: {LogoutModal,Modal},
     data() {
         return {
 
@@ -45,9 +47,7 @@ export default {
             this.roleName = sessionStorage.getItem('roleName')
         },
         handleLogout() {
-            sessionStorage.clear()
-            router.push({name: 'homeRoute'})
-            this.updateNavMenu()
+            this.$refs.logoutModalRef.$refs.modalRef.openModal()
         },
     }
 }
