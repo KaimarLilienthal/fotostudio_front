@@ -38,7 +38,7 @@
                             <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
                         <td>
-                            <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
+                            <font-awesome-icon @click="studioDelete(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
                         </td>
 
 
@@ -92,6 +92,7 @@ export default {
             ).then(response => {
                 this.studios = response.data
 
+
             }).catch(error => {
                 router.push({name: 'errorRoute'})
 
@@ -99,7 +100,17 @@ export default {
         },
         navigateToStudioGeneralView(studioId){
             router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
-        }
+        },
+        studioDelete: function () {
+            this.$http.delete("/my-studio-delete")
+                .then(response => {
+                    alert('Stuudio kustutatud!')
+                })
+                .catch(error => {
+                    const errorResponseBody = error.response.data
+                })
+        },
+
     },
     beforeMount() {
         this.getStudios()
