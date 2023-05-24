@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         getStudios: function () {
-            this.$http.get("/studios/user-studios", {
+            this.$http.get("/studio/user-studios", {
                     params: {
                         userId: this.userId
                     }
@@ -102,7 +102,7 @@ export default {
             router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
         },
         sendStudioDeleteRequest: function (studioId) {
-            this.$http.delete("/studios/my-studio-delete", {
+            this.$http.delete("/studio", {
                 params: {
                     studioId: studioId
                 }

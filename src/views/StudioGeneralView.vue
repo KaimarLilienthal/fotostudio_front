@@ -154,7 +154,7 @@ export default {
 
 
         postNewStudio() {
-            this.$http.post('/studios/general', this.studio
+            this.$http.post('/studio', this.studio
             ).then(response => {
                 alert('Stuudio lisamine õnnestus')
                 router.push({name: 'userStudiosRoute'})
@@ -186,7 +186,7 @@ export default {
 
         },
         putChangeStudioData: function () {
-            this.$http.put("/studios/change-user-studio", this.studio, {
+            this.$http.put("/studio", this.studio, {
                     params: {
                         studioId: this.studioId
                     }

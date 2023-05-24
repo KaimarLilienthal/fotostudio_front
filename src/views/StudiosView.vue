@@ -19,16 +19,13 @@
                 <div class="container">
                     <div class="row mt-4 mb-3" v-for="studio in studios" :key="studio.studioId">
                         <div class="col">
-                            <h2 @click="activateModal">{{studio.studioName}}</h2>
+                            <h2 @click="activateModal">{{ studio.studioName }}</h2>
                         </div>
-                        <div v-if="book === null" class="col img-wrapper">
+                        <div class="col img-wrapper">
                             <StudioImage :image-data="studio.imageData"/>
                         </div>
-                        <div v-else class="row">
-                            <h1>Ei ole ühtegi Stuudiot kuvada :(</h1>
-                        </div>
-                        <div v-if="book === null" class="col">
-                            <button @click="" type="button" class="btn btn-primary">{{book}}</button>
+                        <div class="col">
+                            <button @click="" type="button" class="btn btn-primary">broneeri</button>
                         </div>
                     </div>
                 </div>
@@ -49,7 +46,8 @@ export default {
     components: {StudioImage, DistrictDropdown},
     data() {
         return {
-            book: '',
+
+            selectedDistrictId: 0,
             studios: [
                 {
                     studioName: '',
@@ -59,22 +57,32 @@ export default {
         }
     },
     methods: {
-        activateModal(){
+        setSelectedDistrictId(districtId) {
+            this.selectedDistrictId = ''
+            this.selectedDistrictId = districtId
+            this.studios.districtId = this.selectedDistrictId
+
+            this.getAllActiveStudios()
+        },
+        activateModal() {
             alert('Modal hakkas tööle')
 
         },
         getAllActiveStudios: function () {
-            this.$http.get("/studios/all-studios")
-                .then(response => {
-                    this.studios = response.data
-                })
-                .catch(error => {
-                    const errorResponseBody = error.response.data
-                })
-        },
-},
-    // beforeMount() {
-    //     this.getAllActiveStudios()
-    // }
+            this.$http.get("/studio/all-selected-studios", {
+                    params: {
+                        districtId: this.selectedDistrictId
+                    }
+                }
+            ).then(response => {
+                this.studios = response.data
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        }
+    },
+    beforeMount() {
+        this.getAllActiveStudios()
+    }
 }
 </script>
