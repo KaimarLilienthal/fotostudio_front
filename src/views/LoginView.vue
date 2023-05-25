@@ -20,7 +20,7 @@
                     <input v-model="password" type="password" class="form-control" id="password">
                     <div id="emailHelp" class="form-text">Kasuta kindlasti tähti ja numbreid</div>
                 </div>
-                <button @click="login" type="submit" class="btn btn-primary">Logi sisse</button>
+                <button @click="login" type="submit" class="btn btn-dark">Logi sisse</button>
                 <div class="card-body mt-1" >
                     <a href="login/reset" class="card-link">Parool Ununes</a>
                     <a href="login/register" class="card-link m-3">Registreeru</a>

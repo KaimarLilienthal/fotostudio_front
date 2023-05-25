@@ -11,9 +11,10 @@
 
 body{
     background-image: url("4196050.jpg");
-    background-repeat: repeat;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: v-bind();
     background-position: center;
+
 }
 .hoverable-link {
     cursor: pointer;

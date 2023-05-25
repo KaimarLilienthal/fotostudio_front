@@ -25,7 +25,7 @@
                             <StudioImage :image-data="studio.imageData"/>
                         </div>
                         <div class="col">
-                            <button @click="" type="button" class="btn btn-primary">broneeri</button>
+                            <button @click="" type="button" class="btn btn-dark">broneeri</button>
                         </div>
                     </div>
                 </div>

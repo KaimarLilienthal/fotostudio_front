@@ -7,6 +7,9 @@ import ErrorView from "@/views/ErrorView.vue";
 import StudioGeneralView from "@/views/StudioGeneralView.vue";
 import ResetView from "@/views/ResetView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import StudioGeneralSettingsView from "@/views/StudioGeneralSettingsView.vue";
+import StudioGeneralAvailabilityView from "@/views/StudioGeneralAvailabilityView.vue";
+import StudioGeneralReservationView from "@/views/StudioGeneralReservationView.vue";
 
 const routes = [
   {
@@ -48,8 +51,22 @@ const routes = [
     path: '/login/register',
     name: 'registerRoute',
     component: RegisterView
-  }
-
+  },
+  {
+    path: '/studio/general-settings',
+    name:'settingsRoute',
+    component: StudioGeneralSettingsView
+  },
+  {
+    path: '/studio/general-availability',
+    name:'availabilityRoute',
+    component: StudioGeneralAvailabilityView
+  },
+  {
+    path: '/studio/general-reservation',
+    name:'reservationRoute',
+    component: StudioGeneralReservationView
+  },
 ]
 
 const router = createRouter({

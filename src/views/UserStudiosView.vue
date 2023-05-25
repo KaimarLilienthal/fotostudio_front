@@ -8,7 +8,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button @click="navigateToStudioGeneralView(0)" type="button" class="btn btn-primary">Lisa stuudiod</button>
+                <button @click="navigateToStudioGeneralView(0)" type="button" class="btn btn-dark">Lisa stuudiod</button>
             </div>
 
         </div>

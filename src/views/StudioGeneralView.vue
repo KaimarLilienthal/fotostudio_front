@@ -1,4 +1,17 @@
 <template>
+    <div class="container">
+    <div class="row mb-5 justify-content-center">
+        <div class="col col-2">
+            <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
+        </div>
+        <div class="col col-2">
+            <button @click="navigateToAvailabilityView" type="button" class="btn btn-dark">Saadavus</button>
+        </div>
+        <div class="col col-2">
+            <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
+        </div>
+    </div>
+</div>
 
 
     <div class="container text-center">
@@ -36,7 +49,7 @@
     <div class="container text-center">
 
         <div class="row justify-content-center">
-            <div class="col col-6">
+            <div class="col col-3">
                 <div class="input-group mb-3">
                     <span v-if="isEdit" class="input-group-text" id="basic-addon3">Url</span>
                     <span v-else class="input-group-text" id="basic-addon3">Lisa Url</span>
@@ -50,15 +63,15 @@
     </div>
     <div class="container text-center">
 
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col col-3">
                 <label for="basic-url" class="form-label">Aadress</label>
                 <div class="input-group mb-3">
                     <input v-model="studio.address" type="text" class="form-control"
                            placeholder="Sisesta stuudio aadress" aria-describedby="basic-addon1">
                 </div>
             </div>
-            <div class="col">
+            <div class="col col-3">
                 <label for="basic-url" class="form-label">Longtitude</label>
 
                 <div class="input-group mb-3">
@@ -71,13 +84,13 @@
     </div>
     <div class="container text-center">
 
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col col-3">
                 <label for="basic-url" class="form-label">Vali linnaosa</label>
 
                 <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
             </div>
-            <div class="col">
+            <div class="col col-3 justify-content-center">
                 <label for="basic-url" class="form-label">Latitude</label>
                 <div class="input-group mb-3">
 
@@ -94,10 +107,10 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-primary">Muuda
+                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
                             andmed
                         </button>
-                        <button v-else @click="postNewStudio" type="button" class="btn btn-primary">Lisa
+                        <button v-else @click="postNewStudio" type="button" class="btn btn-dark">Lisa
                             stuudio
                         </button>
                     </div>
@@ -211,7 +224,16 @@ export default {
 
         setSelectedDistrictField() {
             this.$refs.districtDropdownRef.setSelectedDistrictId(this.studio.districtId)
-        }
+        },
+        navigateToSettingsView(){
+            router.push({name:'settingsRoute', query:{studioId: this.studioId}})
+        },
+        navigateToAvailabilityView(){
+            router.push({name:'availabilityRoute', query:{studioId: this.studioId}})
+        },
+        navigateToReservationView(){
+            router.push({name:'ReservationRoute', query:{studioId: this.studioId}})
+        },
 
     },
     mounted() {

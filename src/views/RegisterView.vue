@@ -31,7 +31,7 @@
                             Nõustun <a @click="conditions" href="#">kasutajatingimustega</a>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registreeru</button>
+                    <button type="submit" class="btn btn-dark">Registreeru</button>
                 </form>
             </div>
         </div>

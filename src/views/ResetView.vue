@@ -14,7 +14,7 @@
 
                 </div>
 
-                <button @click="reset" type="submit" class="btn btn-primary">Saada uus parool</button>
+                <button @click="reset" type="submit" class="btn btn-dark">Saada uus parool</button>
 
 
 
