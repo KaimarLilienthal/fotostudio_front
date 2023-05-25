@@ -1,8 +1,9 @@
 <template>
 
+
     <div class="container text-center">
 
-        <div class="row mb-5 justify-content-center">
+        <div class="row justify-content-center">
             <div class="col col-4">
                 <div class="input-group mb-3">
                     <input v-model="studio.studioName" type="text" class="form-control"
@@ -14,8 +15,8 @@
     </div>
     <div class="container text-center">
 
-        <div class="row mb-5">
-            <div class="col">
+        <div class="row">
+            <div class="col mb-1">
                 <div class="img-wrapper1">
                     <StudioImage :image-data="studio.imageData"/>
                 </div>
@@ -25,17 +26,17 @@
     </div>
     <div class="container text-center">
 
-        <div class="row mb-5">
-            <div class="col">
-                <button type="button" class="btn btn-primary">Otsi pilt</button>
+        <div class="row">
+            <div class="col mb-3">
+                <ImageInput ref="imageInputRef" @event-emit-base64="emitBase64"/>
             </div>
         </div>
 
     </div>
     <div class="container text-center">
 
-        <div class="row mb-5 justify-content-center">
-            <div class="col col-5">
+        <div class="row justify-content-center">
+            <div class="col col-6">
                 <div class="input-group mb-3">
                     <span v-if="isEdit" class="input-group-text" id="basic-addon3">Url</span>
                     <span v-else class="input-group-text" id="basic-addon3">Lisa Url</span>
@@ -49,15 +50,15 @@
     </div>
     <div class="container text-center">
 
-        <div class="row mb-5 justify-content-center">
-            <div class="col col-3">
+        <div class="row">
+            <div class="col">
                 <label for="basic-url" class="form-label">Aadress</label>
                 <div class="input-group mb-3">
                     <input v-model="studio.address" type="text" class="form-control"
                            placeholder="Sisesta stuudio aadress" aria-describedby="basic-addon1">
                 </div>
             </div>
-            <div class=" col col-2">
+            <div class="col">
                 <label for="basic-url" class="form-label">Longtitude</label>
 
                 <div class="input-group mb-3">
@@ -70,13 +71,13 @@
     </div>
     <div class="container text-center">
 
-        <div class="row mb-5 justify-content-center">
-            <div class="col col-3">
+        <div class="row">
+            <div class="col">
                 <label for="basic-url" class="form-label">Vali linnaosa</label>
 
                 <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
             </div>
-            <div class="col col-2">
+            <div class="col">
                 <label for="basic-url" class="form-label">Latitude</label>
                 <div class="input-group mb-3">
 
@@ -115,10 +116,11 @@ import StudioImage from "@/components/StudioImage.vue";
 import DistrictDropdown from "@/components/DistrictDropdown.vue";
 import router from "@/router";
 import {useRoute} from "vue-router";
+import ImageInput from "@/components/ImageInput.vue";
 
 export default {
     name: "StudioGeneralView",
-    components: {DistrictDropdown, StudioImage},
+    components: {DistrictDropdown, StudioImage, ImageInput},
     data() {
         return {
             isEdit: false,
@@ -145,6 +147,14 @@ export default {
         }
     },
     methods: {
+        emitBase64(imageData) {
+
+            this.$emit('event-emit-base64', imageData)
+            this.studio.imageData = imageData
+
+        },
+        setImageData64(imageData) {
+        },
         setSelectedDistrictId(districtId) {
             this.selectedDistrictId = ''
             this.selectedDistrictId = districtId
@@ -153,7 +163,7 @@ export default {
 
 
         postNewStudio() {
-            this.$http.post('/studios/general', this.studio
+            this.$http.post('/studio', this.studio
             ).then(response => {
                 alert('Stuudio lisamine õnnestus')
                 router.push({name: 'userStudiosRoute'})
@@ -171,7 +181,7 @@ export default {
         },
 
         getStudioData: function () {
-            this.$http.get("/studios/user-studio", {
+            this.$http.get("/studio/user-studio", {
                     params: {
                         studioId: this.studioId,
                     }
@@ -185,7 +195,7 @@ export default {
 
         },
         putChangeStudioData: function () {
-            this.$http.put("/studios/change-user-studio", this.studio, {
+            this.$http.put("/studio", this.studio, {
                     params: {
                         studioId: this.studioId
                     }
