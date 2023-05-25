@@ -16,7 +16,7 @@
     <div class="container text-center">
 
         <div class="row">
-            <div class="col">
+            <div class="col mb-1">
                 <div class="img-wrapper1">
                     <StudioImage :image-data="studio.imageData"/>
                 </div>
@@ -27,8 +27,8 @@
     <div class="container text-center">
 
         <div class="row">
-            <div class="col">
-                <button type="button" class="btn btn-primary">Otsi pilt</button>
+            <div class="col mb-3">
+                <ImageInput ref="imageInputRef" @event-emit-base64="emitBase64"/>
             </div>
         </div>
 
@@ -116,10 +116,11 @@ import StudioImage from "@/components/StudioImage.vue";
 import DistrictDropdown from "@/components/DistrictDropdown.vue";
 import router from "@/router";
 import {useRoute} from "vue-router";
+import ImageInput from "@/components/ImageInput.vue";
 
 export default {
     name: "StudioGeneralView",
-    components: {DistrictDropdown, StudioImage},
+    components: {DistrictDropdown, StudioImage, ImageInput},
     data() {
         return {
             isEdit: false,
@@ -146,6 +147,14 @@ export default {
         }
     },
     methods: {
+        emitBase64(imageData) {
+
+            this.$emit('event-emit-base64', imageData)
+            this.studio.imageData = imageData
+
+        },
+        setImageData64(imageData) {
+        },
         setSelectedDistrictId(districtId) {
             this.selectedDistrictId = ''
             this.selectedDistrictId = districtId
@@ -172,7 +181,7 @@ export default {
         },
 
         getStudioData: function () {
-            this.$http.get("/studios/user-studio", {
+            this.$http.get("/studio/user-studio", {
                     params: {
                         studioId: this.studioId,
                     }
