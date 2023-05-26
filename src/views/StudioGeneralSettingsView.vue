@@ -5,14 +5,13 @@
                 <button @click="navigateToGeneralView" type="button" class="btn btn-dark">Üldised sätted</button>
             </div>
             <div class="col col-2">
-                <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
+                <button @click="navigateToAvailabilityView" type="button" class="btn btn-dark">Saadavus</button>
             </div>
             <div class="col col-2">
-                <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
+                <button @click="navigateToReservation" type="button" class="btn btn-dark">Broneeringud</button>
             </div>
         </div>
     </div>
-    <div class="home">
         <div class="container">
             <div class="row mb-5">
                 <div class="col">
@@ -20,14 +19,16 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="container">
         <div class="row mb-5 justify-content-center">
             <div class="col col-2">
                 <h5>Tunni hind</h5>
             </div>
-            <div class="col col-2">
-                <h5>40€</h5>
+            <div class="col col-1">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">€</span>
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
             </div>
             <div class="col col-3">
                 <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Salvesta</button>
@@ -51,33 +52,41 @@
                     </ul>
                 </div>
             </div>
-            <div class="col col-2">
-                <h5>Hind</h5>
+            <div class="col col-1">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">€</span>
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                </div>
             </div>
             <div class="col col-3">
                 <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Lisa teenuste hulka</button>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <table class=" table table-dark table-hover">
+
+    <div class="row justify-content-center">
+        <div class="col col-5">
+
+            <table class="table table-dark table-hover">
                 <thead>
                 <tr>
-                    <div class="row mb-5 justify-content-center ">
-                        <div class="col col-4">
-                            <th scope="col">Lisatud teenused</th>
-                            <th scope="col">Hind</th>
-                            <th scope="col">Kustuta</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-
-                        </div>
-                    </div>
+                    <th scope="col">Lisa teenused</th>
+                    <th scope="col">Hind</th>
+                    <th><font-awesome-icon @click="sendStudioDeleteRequest(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" /></th>
                 </tr>
                 </thead>
+                <tbody>
+                <tr v-for="studio in studios" :key="studio.studioId">
+                    <th>{{}}</th>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{studio.studioId}}</td>
+
+                </tr>
+                </tbody>
             </table>
+
+
         </div>
     </div>
 
@@ -86,6 +95,7 @@
 <script>
 import {useRoute} from "vue-router";
 import StudioImage from "@/components/StudioImage.vue";
+import router from "@/router";
 
 export default {
     name: "StudioGeneralSettingsView",
@@ -94,6 +104,17 @@ export default {
         return{
             studioId: Number(useRoute().query.studioId),
         }
+    },
+    methods:{
+        navigateToReservation(){
+            router.push({name:'reservationRoute',query:{studioId: this.studioId}})
+        },
+        navigateToGeneralView(){
+            router.push({name:'generalRoute',query:{studioId: this.studioId}})
+        },
+        navigateToAvailabilityView(){
+            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
+        },
     }
 }
 </script>

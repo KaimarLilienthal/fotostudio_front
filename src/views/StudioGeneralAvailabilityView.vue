@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb-5 justify-content-center">
             <div class="col col-2">
-                <button @click="" type="button" class="btn btn-dark">Üldised sätted</button>
+                <button @click="navigateToGeneralView" type="button" class="btn btn-dark">Üldised sätted</button>
             </div>
             <div class="col col-2">
                 <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
@@ -77,15 +77,32 @@
 <script>
 import {useRoute} from "vue-router";
 import data from "bootstrap/js/src/dom/data";
+import router from "@/router";
 
 export default {
     name: "StudioGeneralAvailabilityView",
     components:'',
+
     data(){
         return{
-            studioId:Number(useRoute().query.studioId),
+            studioId: Number(useRoute().query.studioId),
         }
+    },
+
+    methods:{
+        navigateToSettingsView(){
+            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
+        },
+        navigateToGeneralView(){
+            router.push({name:'generalRoute',query:{studioId: this.studioId}})
+        },
+        navigateToReservationView(){
+            router.push({name:'reservationView', query:{studioId: this.studioId}})
+        }
+
     }
+
+
 
 }
 

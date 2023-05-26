@@ -226,13 +226,13 @@ export default {
             this.$refs.districtDropdownRef.setSelectedDistrictId(this.studio.districtId)
         },
         navigateToSettingsView(){
-            router.push({name:'settingsRoute', query:{studioId: this.studioId}})
+            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
         },
         navigateToAvailabilityView(){
-            router.push({name:'availabilityRoute', query:{studioId: this.studioId}})
+            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
         },
         navigateToReservationView(){
-            router.push({name:'ReservationRoute', query:{studioId: this.studioId}})
+            router.push({name:'reservationRoute',query:{studioId: this.studioId}})
         },
 
     },
