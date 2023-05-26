@@ -1,17 +1,17 @@
 <template>
-    <div class="container">
-    <div class="row mb-5 justify-content-center">
-        <div class="col col-2">
-            <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
-        </div>
-        <div class="col col-2">
-            <button @click="navigateToAvailabilityView" type="button" class="btn btn-dark">Saadavus</button>
-        </div>
-        <div class="col col-2">
-            <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
+    <div v-if="studioId !== 0" class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col col-2">
+                <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
+            </div>
+            <div class="col col-2">
+                <button @click="navigateToAvailabilityView" type="button" class="btn btn-dark">Saadavus</button>
+            </div>
+            <div class="col col-2">
+                <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
+            </div>
         </div>
     </div>
-</div>
 
 
     <div class="container text-center">
@@ -127,8 +127,8 @@
 <script>
 import StudioImage from "@/components/StudioImage.vue";
 import DistrictDropdown from "@/components/DistrictDropdown.vue";
-import router from "@/router";
 import {useRoute} from "vue-router";
+import router from "@/router";
 import ImageInput from "@/components/ImageInput.vue";
 
 export default {
@@ -225,14 +225,14 @@ export default {
         setSelectedDistrictField() {
             this.$refs.districtDropdownRef.setSelectedDistrictId(this.studio.districtId)
         },
-        navigateToSettingsView(){
-            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
+        navigateToSettingsView() {
+            router.push({name: 'settingsRoute', query: {studioId: this.studioId}})
         },
-        navigateToAvailabilityView(){
-            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
+        navigateToAvailabilityView() {
+            router.push({name: 'availabilityRoute', query: {studioId: this.studioId}})
         },
-        navigateToReservationView(){
-            router.push({name:'reservationRoute',query:{studioId: this.studioId}})
+        navigateToReservationView() {
+            router.push({name: 'reservationRoute', query: {studioId: this.studioId}})
         },
 
     },

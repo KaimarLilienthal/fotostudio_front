@@ -94,10 +94,10 @@ export default {
             router.push({name:'settingsRoute',query:{studioId: this.studioId}})
         },
         navigateToGeneralView(){
-            router.push({name:'generalRoute',query:{studioId: this.studioId}})
+            router.push({name:'studioGeneralRoute',query:{studioId: this.studioId}})
         },
         navigateToReservationView(){
-            router.push({name:'reservationView', query:{studioId: this.studioId}})
+            router.push({name:'reservationRoute', query:{studioId: this.studioId}})
         }
 
     }

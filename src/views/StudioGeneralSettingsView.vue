@@ -12,54 +12,44 @@
             </div>
         </div>
     </div>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col">
-                    <h1>Photoroom</h1>
-                </div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <h1>{{ studioName }}</h1>
             </div>
         </div>
+    </div>
     <div class="container">
         <div class="row mb-5 justify-content-center">
             <div class="col col-2">
                 <h5>Tunni hind</h5>
             </div>
-            <div class="col col-1">
+            <div class="col col-2">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">€</span>
-                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                    <input v-model="studioPrice.hourPrice" type="text" class="form-control" placeholder="" aria-label=""
+                           aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col col-3">
-                <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Salvesta</button>
+                <button @click="patchStudioHourPrice" type="button" class="btn btn-dark">Salvesta</button>
             </div>
         </div>
     </div>
     <div class="container justify-content-center">
         <div class="row justify-content-center ">
             <div class="col col-2">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Vali teenused
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Valgustus</a></li>
-                        <li><a class="dropdown-item" href="#">Välgud</a></li>
-                        <li><a class="dropdown-item" href="#">Softbox</a></li>
-                        <li><a class="dropdown-item" href="#">Reflektorid</a></li>
-                        <li><a class="dropdown-item" href="#">Taustad</a></li>
-                        <li><a class="dropdown-item" href="#">Värvilised kiled</a></li>
-                    </ul>
-                </div>
+                <ExtraDropdown ref="extraDropdownRef" @event-emit-selected-extra-id="setSelectedExtraId"/>
             </div>
-            <div class="col col-1">
+            <div class="col col-2">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">€</span>
-                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                    <span class="input-group-text" id="basic-addon1">Hind</span>
+                    <input v-model="extraPrice" type="text" class="form-control" placeholder="0€" aria-label=""
+                           aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col col-3">
-                <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Lisa teenuste hulka</button>
+                <button @click="setStudioExtra" type="button" class="btn btn-dark">Lisa teenuste hulka</button>
             </div>
         </div>
     </div>
@@ -72,16 +62,16 @@
                 <tr>
                     <th scope="col">Lisa teenused</th>
                     <th scope="col">Hind</th>
-                    <th><font-awesome-icon @click="sendStudioDeleteRequest(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" /></th>
+                    <th scope="col">Prügikast</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="studio in studios" :key="studio.studioId">
                     <th>{{}}</th>
                     <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{studio.studioId}}</td>
-
+                    <th>
+                        <font-awesome-icon @click="deleteStudioExtra" class="hoverable-link" :icon="['fas', 'trash']"/>
+                    </th>
                 </tr>
                 </tbody>
             </table>
@@ -94,33 +84,107 @@
 
 <script>
 import {useRoute} from "vue-router";
-import StudioImage from "@/components/StudioImage.vue";
 import router from "@/router";
+import ExtraDropdown from "@/components/ExtraDropdown.vue";
 
 export default {
     name: "StudioGeneralSettingsView",
-    components: {StudioImage},
-    data(){
-        return{
+    components: {ExtraDropdown},
+    data() {
+        return {
+            studioPrice: {
+                hourPrice: 0
+            },
+            studioExtra: {
+                studioId: 0,
+                extraId: 0,
+                price: 0
+            },
+            extraPrice: 0,
+            studioName: 'Stuudio nimi',
             studioId: Number(useRoute().query.studioId),
+
         }
     },
-    methods:{
-        navigateToReservation(){
-            router.push({name:'reservationRoute',query:{studioId: this.studioId}})
+    methods: {
+        navigateToReservation() {
+            router.push({name: 'reservationRoute', query: {studioId: this.studioId}})
         },
-        navigateToGeneralView(){
-            router.push({name:'generalRoute',query:{studioId: this.studioId}})
+        navigateToGeneralView() {
+            router.push({name: 'studioGeneralRoute', query: {studioId: this.studioId}})
         },
-        navigateToAvailabilityView(){
-            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
+        navigateToAvailabilityView() {
+            router.push({name: 'availabilityRoute', query: {studioId: this.studioId}})
         },
+        setSelectedExtraId(extraId) {
+            this.studioExtra.extraId = extraId
+        },
+        setStudioExtra() {
+            this.studioExtra.studioId = this.studioId
+            this.studioExtra.price = Number(this.extraPrice)
+            this.addStudioExtraWithPrice();
+
+        },
+        getStudioHourPrice: function () {
+            this.$http.get("/studio/price", {
+                    params: {
+                        studioId: this.studioId
+                    }
+                }
+            ).then(response => {
+                this.studioPrice = response.data
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+        patchStudioHourPrice: function () {
+            this.studioPrice.hourPrice = Number(this.studioPrice.hourPrice)
+
+            this.$http.patch("/studio/price", this.studioPrice, {
+                    params: {
+                        studioId: this.studioId
+                    }
+                }
+            ).then(response => {
+                alert('Stuudio tunni hind muudetud')
+
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+
+        deleteStudioExtra: function () {
+            this.$http.delete("/extra/studio-extra", {
+                    params: {
+                        studioId: this.studioId,
+                        extraId: this.extraId
+                    }
+                }
+            ).then(response => {
+                const responseBody = response.data
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+        addStudioExtraWithPrice: function () {
+            this.$http.post("/extra/studio-extra", this.studioExtra
+            ).then(response => {
+                alert('Lisateenus lisatud')
+                this.extraPrice = 0
+                this.$refs.extraDropdownRef.setSelectedDistrictId('0')
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+
+
+    },
+    beforeMount() {
+        this.getStudioHourPrice();
     }
 }
 </script>
 
-<style scoped>
 
-</style>
 
 

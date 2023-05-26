@@ -8,7 +8,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button @click="navigateToStudioGeneralView(0)" type="button" class="btn btn-dark">Lisa stuudiod</button>
+                <button @click="navigateToStudioGeneralView" type="button" class="btn btn-dark">Lisa stuudiod</button>
             </div>
 
         </div>
@@ -35,7 +35,7 @@
                             </div>
                         </td>
                         <td>{{studio.studioId}}
-                            <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
+                            <font-awesome-icon @click="navigateToChangeStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
                         <td>
                             <font-awesome-icon @click="sendStudioDeleteRequest(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
@@ -68,7 +68,6 @@ export default {
 
     data() {
         return {
-
             userId: sessionStorage.getItem('userId'),
             studios: [
                 {
@@ -98,9 +97,13 @@ export default {
 
             })
         },
-        navigateToStudioGeneralView(studioId){
+        navigateToStudioGeneralView(){
+            router.push({name: 'studioGeneralRoute', query: {studioId: 0}})
+        },
+        navigateToChangeStudioGeneralView(studioId){
             router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
         },
+
         sendStudioDeleteRequest: function (studioId) {
             this.$http.delete("/studio", {
                 params: {

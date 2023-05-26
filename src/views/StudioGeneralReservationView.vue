@@ -72,13 +72,13 @@ export default {
 
     methods:{
         navigateToGeneralView(){
-            router.push({name:'generalRoute',query:{studioId: this.studioId}})
+            router.push({name:'studioGeneralRoute',query:{studioId: this.studioId}})
         },
         navigateToAvailabilityView(){
-            router.push({name:'availabilityView',query:{studioId: this.studioId}})
+            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
         },
         navigateToSettingsView(){
-            router.push({name:'settingsView',query:{studioId: this.studioId}})
+            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
         }
 
 
