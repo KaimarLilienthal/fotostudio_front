@@ -39,16 +39,18 @@
     </div>
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
+    <SuccessAfterModal :message="successMessage" ref="successAfterModalRef" @event-after-success="pushAfterRegistration"/>
 </template>
 
 <script>
 import router from "@/router";
 import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
 import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
+import SuccessAfterModal from "@/components/modal/alertmodals/SuccessAfterModal.vue";
 
 export default {
     name: "RegisterView",
-    components: {SuccessModal, DangerModal},
+    components: {SuccessModal, DangerModal, SuccessAfterModal},
     data() {
         return {
 
@@ -92,8 +94,7 @@ export default {
                 this.$http.post("/user", this.newUser
                 ).then(response => {
                     this.successMessage = 'Kasutaja registreeritud, logi sisse'
-                    this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
-                    router.push({name: 'loginRoute'})
+                    this.$refs.successAfterModalRef.$refs.modalTemplateRef.openModal();
                 }).catch(error => {
                     this.errorResponse = error.response.data
                     if (this.errorResponse.errorCode === 444) {
@@ -116,6 +117,9 @@ export default {
         },
         handleDangerMessage() {
             this.resetAllFields();
+        },
+        pushAfterRegistration(){
+            router.push({name: 'loginRoute'})
         }
 
 
