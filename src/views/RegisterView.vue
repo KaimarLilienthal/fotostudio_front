@@ -8,7 +8,7 @@
         <div @keydown.enter="sign" class="row mb-5 justify-content-center">
             <div class="col col-3">
 
-                <form @submit.prevent="sign" >
+                <form @submit.prevent="sign">
                     <div class="mb-3">
                         <label for="exampleInputUserName" class="form-label">Kasutajanimi</label>
                         <input v-model="newUser.username" type="username" class="form-control">
@@ -19,7 +19,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Salasõna</label>
-                        <input v-model="newUser.password" type="password" class="form-control" id="exampleInputPassword1">
+                        <input v-model="newUser.password" type="password" class="form-control"
+                               id="exampleInputPassword1">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword2" class="form-label">Salasõna uuesti </label>
@@ -36,14 +37,18 @@
             </div>
         </div>
     </div>
-
+    <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
+    <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
 </template>
 
 <script>
 import router from "@/router";
+import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
+import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
 
 export default {
     name: "RegisterView",
+    components: {SuccessModal, DangerModal},
     data() {
         return {
 
@@ -57,7 +62,10 @@ export default {
             errorResponse: {
                 message: '',
                 errorCode: 0
-            }
+            },
+            successMessage: ''
+
+
         }
     },
     methods: {
@@ -69,25 +77,29 @@ export default {
             this.terms = false
         }, sign() {
             if (this.newUser.email == '' || this.newUser.username == '' || this.newUser.password == '' || this.password1 == '') {
-                alert('Palun täida kõik väljad!')
+                this.successMessage = 'Palun täida kõik väljad!'
+                this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
             } else if (this.newUser.password != this.password1) {
                 this.newUser.password = ''; // Clear the password field
                 this.password1 = ''; // Clear the password confirmation field
-                alert('Paroolid ei ühti!')
+                this.successMessage = 'Paroolid ei ühti!'
+                this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
             } else if (this.terms == false) {
-                alert('Nõustu kasutajatingimustega!')
+                this.successMessage = 'Nõustu kasutajatingimustega!'
+                this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
             } else {
 
                 this.$http.post("/user", this.newUser
                 ).then(response => {
-                    alert('Kasutaja registreeritud, logi sisse')
-                        router.push({name: 'loginRoute'})
+                    this.successMessage = 'Kasutaja registreeritud, logi sisse'
+                    this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
+                    router.push({name: 'loginRoute'})
                 }).catch(error => {
                     this.errorResponse = error.response.data
                     if (this.errorResponse.errorCode === 444) {
                         this.message = this.errorResponse.message
-                        alert(this.errorResponse.message)
-                        this.resetAllFields();
+                        this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
+                        this.handleDangerMessage()
                     } else {
                         router.push({name: 'errorRoute'})
                     }
@@ -125,7 +137,12 @@ export default {
                 '\n' +
                 'Terapeut.ee jätab endale õiguse muuta praktiku profiil teatud perioodiks passiivseks (mitte nähtavaks), kui selgub, et praktik on eksinud siin väljatoodud kasutajatingimuste vastu.')
         },
+        handleSuccessMessage() {
 
+        },
+        handleDangerMessage() {
+            this.resetAllFields();
+        }
 
 
     }

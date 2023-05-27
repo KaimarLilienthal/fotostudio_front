@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row mb-5">
                 <div class="col">
-                    <h1>Photoroom</h1>
+                    <h1>{{studioName}}</h1>
                 </div>
             </div>
         </div>
@@ -67,6 +67,7 @@ export default {
     data(){
         return{
             studioId: Number(useRoute().query.studioId),
+            studioName: String(useRoute().query.studioName),
         }
     },
 
@@ -75,10 +76,10 @@ export default {
             router.push({name:'studioGeneralRoute',query:{studioId: this.studioId}})
         },
         navigateToAvailabilityView(){
-            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
+            router.push({name:'availabilityRoute',query:{studioId: this.studioId, studioName: this.studioName}})
         },
         navigateToSettingsView(){
-            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
+            router.push({name:'settingsRoute',query:{studioId: this.studioId, studioName: this.studioName}})
         }
 
 

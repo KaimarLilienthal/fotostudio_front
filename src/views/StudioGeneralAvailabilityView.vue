@@ -11,6 +11,13 @@
                 <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
             </div>
         </div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col">
+                    <h1>{{studioName}}</h1>
+                </div>
+            </div>
+        </div>
         <div class="row mb-12 justify-content-center">
             <h4>Vali kuupäeva algus ja lõpp</h4>
         <div class="col col-2">
@@ -86,18 +93,19 @@ export default {
     data(){
         return{
             studioId: Number(useRoute().query.studioId),
+            studioName: String(useRoute().query.studioName),
         }
     },
 
     methods:{
         navigateToSettingsView(){
-            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
+            router.push({name:'settingsRoute',query:{studioId: this.studioId, studioName: this.studioName}})
         },
         navigateToGeneralView(){
             router.push({name:'studioGeneralRoute',query:{studioId: this.studioId}})
         },
         navigateToReservationView(){
-            router.push({name:'reservationRoute', query:{studioId: this.studioId}})
+            router.push({name:'reservationRoute', query:{studioId: this.studioId, studioName: this.studioName}})
         }
 
     }
