@@ -21,30 +21,33 @@
                     <div id="emailHelp" class="form-text">Kasuta kindlasti tähti ja numbreid</div>
                 </div>
                 <button @click="login" type="submit" class="btn btn-dark">Logi sisse</button>
-                <div class="card-body mt-1" >
+                <div class="card-body mt-1">
                     <a href="login/reset" class="card-link">Parool Ununes</a>
                     <a href="login/register" class="card-link m-3">Registreeru</a>
                 </div>
-
-
 
 
             </div>
         </div>
 
     </div>
-
+    <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
+    <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
 
 </template>
 
 <script>
 
 import router from "@/router";
+import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
+import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
 
 export default {
     name: 'LoginView',
+    components: {SuccessModal, DangerModal},
     data() {
         return {
+            successMessage: '',
             message: '',
             username: '',
             password: '',
@@ -62,8 +65,8 @@ export default {
         login() {
             this.message = ''
             if (this.username === '' || this.password === '') {
-                this.message = 'Kõik väljad tuleb täita!'
-                alert('Kõik väljad tuleb täita!')
+                this.successMessage = 'Kõik väljad tuleb täita!'
+                this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
             } else {
                 this.sendLoginRequest();
             }
@@ -86,7 +89,7 @@ export default {
                     router.push({name: 'userStudiosRoute'})
                 } else {
                     // todo: vaja suunata adminni teele
-                    router.push({name: 'homeRoute'})
+                    router.push({name: 'userStudiosRoute'})
                 }
 
 
@@ -94,12 +97,19 @@ export default {
                 this.errorResponse = error.response.data
                 if (this.errorResponse.errorCode === 111) {
                     this.message = this.errorResponse.message
-                    alert(this.errorResponse.message)
+                    this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
                 } else {
                     router.push({name: 'errorRoute'})
                 }
             })
         },
+        handleSuccessMessage() {
+
+        },
+        handleDangerMessage() {
+            this.username = ''
+            this.password = ''
+        }
     }
 }
 
