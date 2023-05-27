@@ -108,34 +108,8 @@ export default {
             }
         },
         conditions() {
-            alert('Kasutustingimused\n' +
-                'Kõikidelt veebilehel eksponeeritud praktikutelt ootame teemakohaseid artikleid, kui nad neid soovivad kirjutada. Kindlasti annab see juurde nähtavust ja kredibiilsust, kuid terapeut.ee võtab endale õiguse artikleid redigeerida ning mitte avaldada artikleid, millel on otseselt kommertslik sisu.\n' +
-                '\n' +
-                'Artiklite puhul, millega kutsutakse üles osalema teemakohastel seminaridel, töötubades või muudel kursustel, on vajalik erikokkulepe.\n' +
-                '\n' +
-                'Terapeut.ee veebilehel saavad end eksponeerida vaid omal alal diplomeeritud praktikud. Terapeut.ee ei sätesta konkreetseid piiranguid diplomitele (st terapeut.ee ei ütle, et miinimum väljaõpe kestab konkreetne arv aastaid), vaid vaatab igat juhtumit eraldi. Diplomid ning väljaõppe pikkus kuvatakse praktiku profiilil. NB! Terapeut.ee veebilehega liitudes annab soovi avaldanud praktik terapeut.ee meeskonnale loa kontrollida oma diplomi õigsust ning vajadusel kontakteeruda institutsiooniga, kes diplomi väljastas. Terapeut.ee jätab endale õiguse praktiku sooviavaldust liitumiseks mitte rahuldada.\n' +
-                '\n' +
-                'Terapeut.ee veebikeskkonnas eksponeeritud tekst ja pildi-  ning videomaterjal peab olema sobilik igas vanuses inimestele. St vältida tuleks kohatut alastust, roppusi, alandamist, teiste praktikate maha tegemist jms. Sobimatu materjal ei leia kajastust veebilehel.\n' +
-                '\n' +
-                'Terapeut.ee veebikeskkonnaga liitumisel kuulub tasumisele ühekordne liitumistasu summas 30€ ning muud tasud vastavalt valitud paketile.\n' +
-                '\n' +
-                'Terapeut.ee jätab endale õiguse pakettide hindasid muuta. Hinnamuudatusi ei tehta tagasivaatavalt.\n' +
-                '\n' +
-                'Liituja poolt saadetud uued ning täiendavad andmed (pildimaterjal, videomaterjal, artiklid, kliendi tagasiside jms) vaadatakse üle ning sobivuse korral laetakse üles hiljemalt 5 tööpäeva jooksul.\n' +
-                '\n' +
-                'Kui terapeut.ee meeskonnale saabub mõne kliendi poolt konkreetse praktiku suhtes kaebekiri, on veebilehel eksponeeritud praktikul kohustus 2 nädala jooksul kirjutada terapeut.ee meeskonnale konkreetse juhtumi suhtes seletav kiri. Selle eesmärk on leida sõbralik lahendus mõlemale osapoolele säilitades seejuures veebilehe terapeut.ee head mainet. Terapeut.ee meeskonnal on õigus olulistel asjaoludel profiili eksponeerimine ühepoolselt lõpetada.\n' +
-                '\n' +
-                'Terapeut.ee veebilehel on õigus oma keskkonda reklaamida erinevas meedias, et tõsta lehe külastatavust ning tõstatada olulisi teemasid.\n' +
-                '\n' +
-                'Terapeut.ee veebileht on pidevas täienemises ja iga praktik saab selleks anda oma panuse. Kui praktiseerid mingit meetodit, mida terapeut.ee lehel pole kuvatud, ootame rõõmsalt Sinu informatsiooni, et keskkonda täiendada.\n' +
-                '\n' +
-                'Kui praktik soovib veebilehel eksponeerida kliendi nõusolekul tema tagasisidet, siis see on äärmiselt oodatud. Terapeut.ee jätab aga endale õiguse üle kontrollida kliendi nõusolekut vältimaks konfidentsiaalsusriski teket.\n' +
-                '\n' +
-                'Iga veebilehel eksponeeritud praktik saab enda nähtavust tõsta “Nädala terapeudi” rubriigi abil. “Nädala terapeut” rubriik on tasuline ning üks eksponeerimise periood kestab 2 nädalat. Sealsete profiilide eksponeerimisel rakendatakse klassikalist järjekorra printsiipi. Terapeut.ee meeskond annab soovijale teada vabadest aegadest kalendris.\n' +
-                '\n' +
-                'Veebilehega terapeut.ee liitunu teeb kõik endast olulise, et hoida terapeut.ee keskkonna head mainet.\n' +
-                '\n' +
-                'Terapeut.ee jätab endale õiguse muuta praktiku profiil teatud perioodiks passiivseks (mitte nähtavaks), kui selgub, et praktik on eksinud siin väljatoodud kasutajatingimuste vastu.')
+            this.successMessage = 'Kasuta sõbralikult'
+            this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
         },
         handleSuccessMessage() {
 

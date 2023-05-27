@@ -89,11 +89,12 @@ import router from "@/router";
 import ExtraDropdown from "@/components/ExtraDropdown.vue";
 import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
 import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
+import ExtraDeleteModal from "@/components/modal/ExtraDeleteModal.vue";
 
 
 export default {
     name: "StudioGeneralSettingsView",
-    components: {SuccessModal, DangerModal, ExtraDropdown},
+    components: {ExtraDeleteModal, SuccessModal, DangerModal, ExtraDropdown},
     data() {
         return {
             errorResponse: {
