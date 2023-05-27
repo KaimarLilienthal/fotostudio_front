@@ -81,6 +81,7 @@
     </div>
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
+    <ExtraDeleteModal :message="errorResponse.message" ref="extraDeleteModalRef" @event-delete-extra="handleDeleteMessage"/>
 </template>
 
 <script>
