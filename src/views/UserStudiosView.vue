@@ -8,7 +8,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button @click="navigateToStudioGeneralView(0)" type="button" class="btn btn-dark">Lisa stuudiod</button>
+                <button @click="navigateToStudioGeneralView" type="button" class="btn btn-dark">Lisa stuudiod</button>
             </div>
 
         </div>
@@ -35,10 +35,10 @@
                             </div>
                         </td>
                         <td>{{studio.studioId}}
-                            <font-awesome-icon @click="navigateToStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
+                            <font-awesome-icon @click="navigateToChangeStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
                         <td>
-                            <font-awesome-icon @click="sendStudioDeleteRequest(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
+                            <font-awesome-icon @click="handleDelete(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
                         </td>
 
 
@@ -54,21 +54,21 @@
         </div>
 
     </div>
-
+    <DeleteModal ref="deleteModalRef" @event-update-studio-status="sendStudioDeleteRequest"/>
 </template>
 
 <script>
 import router from "@/router";
 import StudioImage from "@/components/StudioImage.vue";
+import DeleteModal from "@/components/modal/DeleteModal.vue";
 
 export default {
     name: "UserStudiosView",
-    components: {StudioImage},
+    components: {DeleteModal, StudioImage},
 
 
     data() {
         return {
-
             userId: sessionStorage.getItem('userId'),
             studios: [
                 {
@@ -98,22 +98,31 @@ export default {
 
             })
         },
-        navigateToStudioGeneralView(studioId){
+        navigateToStudioGeneralView(){
+            router.push({name: 'studioGeneralRoute', query: {studioId: 0}})
+        },
+        navigateToChangeStudioGeneralView(studioId){
             router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
         },
-        sendStudioDeleteRequest: function (studioId) {
+
+        sendStudioDeleteRequest: function () {
             this.$http.delete("/studio", {
                 params: {
-                    studioId: studioId
+                    studioId: this.studios.studioId
                 }
             })
                 .then(response => {
-                    alert('Stuudio kustutatud!')
-                    window.location.reload();
+                    this.getStudios()
+                    // window.location.reload();
                 })
                 .catch(error => {
                     const errorResponseBody = error.response.data
                 })
+        },
+
+        handleDelete(studioId) {
+            this.studios.studioId = studioId
+            this.$refs.deleteModalRef.$refs.modalRef.openModal()
         },
 
     },
