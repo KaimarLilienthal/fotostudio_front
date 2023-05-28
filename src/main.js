@@ -25,3 +25,14 @@ app.use(VueAxios, axios)
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')
+
+// import { createApp } from 'vue'
+// import VueGoogleMaps from '@fawmi/vue-google-maps'
+//
+// const app = createApp(App);
+// app.use(VueGoogleMaps, {
+//     load: {
+//         key: 'AIzaSyDD7N6ngc8Hgb0IFkfd3vzyy8Vd0rSUE7g',
+//     },
+// }).mount('#app')
+
