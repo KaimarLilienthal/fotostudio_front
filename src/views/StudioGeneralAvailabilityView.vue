@@ -1,16 +1,4 @@
 <template>
-    <div class="container">
-        <div class="row mb-5 justify-content-center">
-            <div class="col col-2">
-                <button @click="navigateToGeneralView" type="button" class="btn btn-dark">Üldised sätted</button>
-            </div>
-            <div class="col col-2">
-                <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
-            </div>
-            <div class="col col-2">
-                <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
-            </div>
-        </div>
         <div class="row mb-12 justify-content-center">
             <h4>Vali kuupäeva algus ja lõpp</h4>
         <div class="col col-2">
@@ -29,7 +17,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="row mb-12 justify-content-center">
         <h4>Vali kellaaja algus ja lõpp</h4>
         <div class="col col-2">
@@ -57,17 +44,18 @@
             <table class=" table table-dark table-hover">
                 <thead>
                 <tr>
-                    <div class="row mb-5 justify-content-center ">
+                    <div class="row justify-content-center ">
                         <div class="col col-4">
                             <th scope="col">Kuupäev alates</th>
                             <th scope="col">Kuupäev kuni</th>
                             <th scope="col">Kellaaeg </th>
-                            <th scope="col">kustuta</th>
-
+                            <th scope="col">Kustuta</th>
                         </div>
                     </div>
                 </tr>
                 </thead>
+                <tbody>
+                </tbody>
             </table>
         </div>
     </div>
@@ -89,18 +77,8 @@ export default {
         }
     },
 
-    methods:{
-        navigateToSettingsView(){
-            router.push({name:'settingsRoute',query:{studioId: this.studioId}})
-        },
-        navigateToGeneralView(){
-            router.push({name:'generalRoute',query:{studioId: this.studioId}})
-        },
-        navigateToReservationView(){
-            router.push({name:'reservationView', query:{studioId: this.studioId}})
-        }
 
-    }
+
 
 
 

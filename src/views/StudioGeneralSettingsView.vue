@@ -1,18 +1,5 @@
 <template>
-    <div class="container">
-        <div class="row mb-5 justify-content-center">
-            <div class="col col-2">
-                <button @click="navigateToGeneralView" type="button" class="btn btn-dark">Üldised sätted</button>
-            </div>
-            <div class="col col-2">
-                <button @click="navigateToAvailabilityView" type="button" class="btn btn-dark">Saadavus</button>
-            </div>
-            <div class="col col-2">
-                <button @click="navigateToReservation" type="button" class="btn btn-dark">Broneeringud</button>
-            </div>
-        </div>
-    </div>
-        <div class="container">
+        <div class="container text-center">
             <div class="row mb-5">
                 <div class="col">
                     <h1>Photoroom</h1>
@@ -20,7 +7,7 @@
             </div>
         </div>
     <div class="container">
-        <div class="row mb-5 justify-content-center">
+        <div class="row justify-content-center mt-5" >
             <div class="col col-2">
                 <h5>Tunni hind</h5>
             </div>
@@ -35,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="container justify-content-center">
+    <div class="container">
         <div class="row justify-content-center ">
             <div class="col col-2">
                 <div class="dropdown">
@@ -105,17 +92,6 @@ export default {
             studioId: Number(useRoute().query.studioId),
         }
     },
-    methods:{
-        navigateToReservation(){
-            router.push({name:'reservationRoute',query:{studioId: this.studioId}})
-        },
-        navigateToGeneralView(){
-            router.push({name:'generalRoute',query:{studioId: this.studioId}})
-        },
-        navigateToAvailabilityView(){
-            router.push({name:'availabilityRoute',query:{studioId: this.studioId}})
-        },
-    }
 }
 </script>
 
