@@ -10,7 +10,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import StudioGeneralSettingsView from "@/views/StudioGeneralSettingsView.vue";
 import StudioGeneralAvailabilityView from "@/views/StudioGeneralAvailabilityView.vue";
 import StudioGeneralReservationView from "@/views/StudioGeneralReservationView.vue";
-import UserStudioBooking from "@/views/UserStudioBooking.vue";
+import UserStudioBookingView from "@/views/UserStudioBookingView.vue";
 
 const routes = [
   {

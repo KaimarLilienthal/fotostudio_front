@@ -85,7 +85,7 @@ export default {
             })
         },
         navigateToUserStudioBooking(studioId){
-            router.push({name:'studioBookingRoute', query:{studioId:studioId}})
+            router.push({name:'bookingRoute'})
         },
     },
     beforeMount() {

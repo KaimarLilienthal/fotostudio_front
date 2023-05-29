@@ -11,9 +11,15 @@
 
 <script>
 import router from "@/router";
+import {useRoute} from "vue-router";
 
 export default {
     name: "UserStudioBookingView",
+
+    data(){
+        return{
+        }
+    }
 }
 </script>
 
