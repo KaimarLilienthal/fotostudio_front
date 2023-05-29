@@ -47,7 +47,7 @@
 
                 <span class="input-group-text" id="basic-addon1">Algus</span>
                 <input v-model="startHour" type="time" id="start" class="form-control"
-                       aria-describedby="basic-addon1">
+                       aria-describedby="basic-addon1" step="3600">
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Lõpp</span>
                 <input v-model="endHour" type="time" id="stop" class="form-control"
-                       aria-describedby="basic-addon1">
+                       aria-describedby="basic-addon1" step="3600">
 
             </div>
             <div class="col mb-12">
@@ -72,22 +72,23 @@
                 <thead>
                 <tr>
 
-                            <th scope="col">Kuupäev alates</th>
-                            <th scope="col">Kuupäev kuni</th>
-                            <th scope="col">Kellaaeg alates</th>
-                            <th scope="col">Kellaaeg kuni</th>
-                            <th scope="col">kustuta</th>
+                    <th scope="col">Kuupäev alates</th>
+                    <th scope="col">Kuupäev kuni</th>
+                    <th scope="col">Kellaaeg alates</th>
+                    <th scope="col">Kellaaeg kuni</th>
+                    <th scope="col">kustuta</th>
 
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="availability in availabilities" :key="studioId">
+                <tr v-for="availability in availabilitiesGet" :key="availabilitiesGet.availabilityId">
                     <th>{{ availability.startDate }}</th>
                     <td>{{ availability.endDate }}</td>
                     <td>{{ availability.startHour }}</td>
                     <td>{{ availability.endHour }}</td>
                     <td>
-                        <font-awesome-icon  class="hoverable-link" :icon="['fas', 'trash']" />
+                        <font-awesome-icon @click="deleteRequest(availability.availabilityId)" class="hoverable-link"
+                                           :icon="['fas', 'trash']"/>
                     </td>
                 </tr>
                 </tbody>
@@ -95,22 +96,22 @@
         </div>
     </div>
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
-<!--      <DangerModal :message={"errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>-->
+    <AvailabilityDeleteModal ref="availabilityDeleteModalRef" @event-delete-availability="deleteAvailability"/>
 </template>
 
 <script>
 import {useRoute} from "vue-router";
 
 import router from "@/router";
-import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
 import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
 import StudioImage from "@/components/StudioImage.vue";
+import AvailabilityDeleteModal from "@/components/modal/AvailabilityDeleteModal.vue";
 
 
 export default {
 
     name: "StudioGeneralAvailabilityView",
-    components: {StudioImage, SuccessModal, DangerModal},
+    components: {AvailabilityDeleteModal, StudioImage, SuccessModal},
 
     data() {
         return {
@@ -122,13 +123,21 @@ export default {
             studioId: Number(useRoute().query.studioId),
             studioName: String(useRoute().query.studioName),
             availabilities: {
-
                 startDate: "",
                 endDate: "",
                 startHour: "",
                 endHour: ""
 
-            }
+            },
+            availabilitiesGet: {
+                availabilityId: 0,
+                startDate: "",
+                endDate: "",
+                startHour: "",
+                endHour: ""
+
+            },
+
         }
     },
     watch: {
@@ -185,16 +194,34 @@ export default {
                     }
                 }
             ).then(response => {
-                this.availabilities = response.data
+                this.availabilitiesGet = response.data
             }).catch(error => {
                 router.push({name: 'errorRoute'})
             })
         },
+        deleteAvailability: function () {
+            this.$http.delete("/booking/availability", {
+                    params: {
+                        availabilityId: this.availabilitiesGet.availabilityId
+                    }
+                }
+            ).then(response => {
+                this.successMessage = 'Stuudio lahtiolekuaja andmete kustutamine õnnestus'
+                this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+        deleteRequest(availabilityId) {
+            this.availabilitiesGet.availabilityId = availabilityId
+            this.$refs.availabilityDeleteModalRef.$refs.modalRef.openModal()
+        },
 
 
         handleSuccessMessage() {
+            this.getStudioAvailabilities();
         },
-        handleDangerMessage(){
+        handleDangerMessage() {
 
         }
 
