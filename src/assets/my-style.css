@@ -35,7 +35,7 @@ body{
 /* Rakenda järgmised stiilid modaalakna sisule */
 .modal-dialog {
     transition: background-color 1s;
-    background-color: #3b3a3a;
+    background-color: #2fff90 !important;
     color: black;
     position: unset; /* Positsiooni tüüp on fikseeritud */
     top: 10%; /* Ülemine paigutus on 10% */
