@@ -10,6 +10,7 @@ import RegisterView from "@/views/RegisterView.vue";
 import StudioGeneralSettingsView from "@/views/StudioGeneralSettingsView.vue";
 import StudioGeneralAvailabilityView from "@/views/StudioGeneralAvailabilityView.vue";
 import StudioGeneralReservationView from "@/views/StudioGeneralReservationView.vue";
+import UserStudioBooking from "@/views/UserStudioBooking.vue";
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
     name:'reservationRoute',
     component: StudioGeneralReservationView
   },
+  {
+  path: '/studio/studio-booking',
+    name:'bookingRoute',
+    component: UserStudioBookingView
+},
 ]
 
 const router = createRouter({

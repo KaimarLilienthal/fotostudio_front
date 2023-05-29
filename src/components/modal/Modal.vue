@@ -16,7 +16,7 @@
                     </slot>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="closeModal">{{closeButtonName}}</button>
+                    <button type="button" class="btn btn-dark" @click="closeModal">{{closeButtonName}}</button>
                     <slot name="footer">
                     </slot>
                 </div>

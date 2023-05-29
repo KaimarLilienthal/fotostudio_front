@@ -1,4 +1,5 @@
 <template>
+
     <Modal ref="modalRef" close-button-name="Ei">
         <template #header>
             Logi välja
@@ -8,7 +9,7 @@
         </template>
 
         <template #footer>
-            <button @click="executeLogout" type="button" class="btn btn-primary">Jah</button>
+            <button @click="executeLogout" type="button" class="btn btn-dark">Jah</button>
         </template>
     </Modal>
 </template>

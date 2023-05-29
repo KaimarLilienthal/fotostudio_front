@@ -5,7 +5,7 @@
         </template>
 
         <template #footer>
-            <button @click="executeOk" type="button" class="btn btn-primary">OK</button>
+            <button @click="executeOk" type="button" class="btn btn-dark">OK</button>
         </template>
     </ModalTemplate>
 </template>

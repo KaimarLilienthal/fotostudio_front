@@ -1,5 +1,5 @@
 <template>
-    <Modal ref="modalRef" close-button-name="Ei">
+    <Modal ref="modalRef" close-button-name="Ei" class="btn btn-dark">
         <template #header>
             Kustuta stuudio
         </template>
@@ -8,7 +8,7 @@
         </template>
 
         <template #footer>
-            <button @click="executeLogout" type="button" class="btn btn-primary">Jah</button>
+            <button @click="executeLogout" type="button" class="btn btn-dark">Jah</button>
         </template>
     </Modal>
 </template>
