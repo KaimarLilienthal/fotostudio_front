@@ -33,7 +33,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Lõpp</span>
                     <input v-model="endDate" type="date" id="endDateInput" class="form-control"
-                           aria-describedby="basic-addon1">
+                           aria-describedby="basic-addon1" >
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
                 <span class="input-group-text" id="basic-addon1">Algus</span>
                 <input v-model="startHour" type="time" id="start" class="form-control"
-                       aria-describedby="basic-addon1" step="3600" @input="closeTimeDropdown">
+                       aria-describedby="basic-addon1" step="3600">
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Lõpp</span>
                 <input v-model="endHour" type="time" id="stop" class="form-control"
-                       aria-describedby="basic-addon1" step="3600" @input="closeTimeDropdown">
+                       aria-describedby="basic-addon1" step="3600">
 
             </div>
             <div class="col mb-12">
@@ -97,6 +97,8 @@
     </div>
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <AvailabilityDeleteModal ref="availabilityDeleteModalRef" @event-delete-availability="deleteAvailability"/>
+    <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
+
 </template>
 
 <script>
@@ -106,12 +108,13 @@ import router from "@/router";
 import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
 import StudioImage from "@/components/StudioImage.vue";
 import AvailabilityDeleteModal from "@/components/modal/AvailabilityDeleteModal.vue";
+import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
 
 
 export default {
 
     name: "StudioGeneralAvailabilityView",
-    components: {AvailabilityDeleteModal, StudioImage, SuccessModal},
+    components: {DangerModal, AvailabilityDeleteModal, StudioImage, SuccessModal},
 
     data() {
         return {
@@ -137,9 +140,14 @@ export default {
                 endHour: ""
 
             },
+            errorResponse: {
+                message: '',
+                errorCode: 0
+            },
 
         }
     },
+
     mounted() {
         const today = new Date().toISOString().split("T")[0];
         document.getElementById("startDateInput").setAttribute("min", today);
@@ -170,6 +178,7 @@ export default {
         navigateToReservationView() {
             router.push({name: 'reservationRoute', query: {studioId: this.studioId, studioName: this.studioName}})
         },
+
         show() {
             if (this.startDate == '' || this.endDate == '' || this.startHour == '' || this.endHour == '') {
                 this.successMessage = 'Palun täida kõik väljad!'
@@ -188,7 +197,13 @@ export default {
                     this.successMessage = 'Lahtioleku aeg lisatud!'
                     this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
                 }).catch(error => {
-                    router.push({name: 'errorRoute'})
+                    this.errorResponse = error.response.data
+                    if (this.errorResponse.errorCode === 888) {
+                        this.message = this.errorResponse.message
+                        this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
+                    } else {
+                        router.push({name: 'errorRoute'})
+                    }
                 })
 
             }
