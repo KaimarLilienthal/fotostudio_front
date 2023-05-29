@@ -23,7 +23,7 @@
             <div class="col col-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Algus</span>
-                    <input v-model="startDate" type="date" class="form-control"
+                    <input v-model="startDate" type="date" id="startDateInput" class="form-control"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <div class="col col-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Lõpp</span>
-                    <input v-model="endDate" type="date" class="form-control"
+                    <input v-model="endDate" type="date" id="endDateInput" class="form-control"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
@@ -47,7 +47,7 @@
 
                 <span class="input-group-text" id="basic-addon1">Algus</span>
                 <input v-model="startHour" type="time" id="start" class="form-control"
-                       aria-describedby="basic-addon1" step="3600">
+                       aria-describedby="basic-addon1" step="3600" @input="closeTimeDropdown">
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Lõpp</span>
                 <input v-model="endHour" type="time" id="stop" class="form-control"
-                       aria-describedby="basic-addon1" step="3600">
+                       aria-describedby="basic-addon1" step="3600" @input="closeTimeDropdown">
 
             </div>
             <div class="col mb-12">
@@ -140,6 +140,11 @@ export default {
 
         }
     },
+    mounted() {
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("startDateInput").setAttribute("min", today);
+        document.getElementById("endDateInput").setAttribute("min", today);
+    },
     watch: {
         startHour(newValue) {
             this.startHour = this.formatHour(newValue);
@@ -150,9 +155,11 @@ export default {
     },
 
     methods: {
+
         formatHour(hour) {
             return hour ? `${hour.split(':')[0]}:00` : '';
         },
+
 
         navigateToSettingsView() {
             router.push({name: 'settingsRoute', query: {studioId: this.studioId, studioName: this.studioName}})
