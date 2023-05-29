@@ -105,6 +105,8 @@ export default {
             router.push({name: 'studioGeneralRoute', query: {studioId: studioId}})
         },
 
+
+
         sendStudioDeleteRequest: function () {
             this.$http.delete("/studio", {
                 params: {

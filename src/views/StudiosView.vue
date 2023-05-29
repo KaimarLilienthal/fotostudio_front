@@ -1,4 +1,5 @@
 <template>
+    <StudioPreviewModal ref="studioPreviewModalRef"/>
     <div class="home">
         <div class="container">
             <div class="row mb-5">
@@ -19,13 +20,14 @@
                 <div class="container">
                     <div class="row mt-4 mb-3" v-for="studio in studios" :key="studio.studioId">
                         <div class="col">
-                            <h2 @click="activateModal">{{ studio.studioName }}</h2>
+                            <h2 @click="activateModal(studio.studioId)">{{ studio.studioName }}</h2>
+
                         </div>
                         <div class="col img-wrapper">
                             <StudioImage :image-data="studio.imageData"/>
                         </div>
                         <div class="col">
-                            <button @click="" type="button" class="btn btn-dark">broneeri</button>
+                            <button @click="navigateToUserStudioBooking" type="button" class="btn btn-dark">broneeri</button>
                         </div>
                     </div>
                 </div>
@@ -40,10 +42,11 @@
 import DistrictDropdown from "@/components/DistrictDropdown.vue";
 import router from "@/router";
 import StudioImage from "@/components/StudioImage.vue";
+import StudioPreviewModal from "@/components/modal/StudioPreviewModal.vue";
 
 export default {
     name: "StudiosView",
-    components: {StudioImage, DistrictDropdown},
+    components: {StudioPreviewModal, StudioImage, DistrictDropdown},
     data() {
         return {
 
@@ -51,7 +54,8 @@ export default {
             studios: [
                 {
                     studioName: '',
-                    imageData: ''
+                    imageData: '',
+                    studioId: 0,
                 }
             ]
         }
@@ -64,8 +68,8 @@ export default {
 
             this.getAllActiveStudios()
         },
-        activateModal() {
-            alert('Modal hakkas tööle')
+        activateModal(studioId) {
+            this.$refs.studioPreviewModalRef.getStudioInfo(studioId)
 
         },
         getAllActiveStudios: function () {
@@ -79,7 +83,10 @@ export default {
             }).catch(error => {
                 router.push({name: 'errorRoute'})
             })
-        }
+        },
+        navigateToUserStudioBooking(studioId){
+            router.push({name:'bookingRoute'})
+        },
     },
     beforeMount() {
         this.getAllActiveStudios()
