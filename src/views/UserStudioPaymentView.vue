@@ -1,0 +1,92 @@
+<template>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <h2>Broneeringu kinnitus</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Valitud stuudio ja aeg</h5>
+            <p class="card-text">Stuudio nimi</p>
+            <p class="card-text">päev ja kuupäev</p>
+            <p class="card-text">kellaaeg</p>
+            <p class="card-text">hind</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="mt-5">
+                <h2>Broneeringu andmed</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+        <div class="col col-3">
+            <div class="input-group mb-3">
+
+                <input type="text" class="form-control" placeholder="Ees-ja perekonnanimi" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+
+                <input type="text" class="form-control" placeholder="Telefon" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+
+                <input type="text" class="form-control" placeholder="E-mail" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <h2>Makseviis</h2>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+
+        <input v-model="terms" type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">
+            Nõustun <a @click="conditions" href="#">kasutajatingimustega</a>
+        </label>
+    </div>
+    <div class="mt-3">
+    <button @click="navigateToUserBookingView" type="submit" class="btn btn-dark">Tagasi</button> <button @click="" type="submit" class="btn btn-dark">Broneeri</button>
+    </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import DistrictDropdown from "@/components/DistrictDropdown.vue";
+import StudioImage from "@/components/StudioImage.vue";
+import router from "@/router";
+import {useRoute} from "vue-router";
+import SuccessPaymentModal from "@/components/modal/alertmodals/SuccessPaymentModal.vue";
+import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
+
+export default {
+    name: "UserStudioPaymentView",
+    components: {SuccessModal, SuccessPaymentModal, DistrictDropdown, StudioImage},
+
+    data(){
+        return{
+            studioId: Number(useRoute().query.studioId),
+            studioName: String(useRoute().query.studioName)
+        }
+    },
+    methods:{
+        navigateToUserBookingView(studioId){
+            router.push({name:'bookingRoute',query:{studioId: studioId}})
+    },
+    successMessage: ''
+
+    }
+
+
+}
+</script>
+
+<style scoped>
+
+</style>

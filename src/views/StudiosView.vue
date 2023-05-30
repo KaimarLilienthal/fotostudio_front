@@ -1,26 +1,30 @@
 <template>
-    <StudioPreviewModal ref="studioPreviewModalRef"/>
-    <div class="home">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col">
-                    <h1>Tallinna Fotostuudiod</h1>
-                </div>
-            </div>
-        </div>
 
+    <StudioPreviewModal ref="studioPreviewModalRef"/>
+    <div class="card" style="width: 90rem; background: goldenrod;">
+        <div class="col">
+            <h1>Tallinna Fotostuudiod</h1>
+        </div>
     </div>
+
+    <div class="row mb-xxl-5 justify-content-center;">
+        <div class="row mt-5 card" style="width: 90rem; background: goldenrod;">
+            <div class="row">
+
+                <div class="col col-2 mt-3">
+
+                    <label for="basic-url" class="form-label">Vali linnaosa</label>
+                    <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
+                </div>
+
+        </div>
     <div class="container">
-        <div class="row">
-            <div class="col col-2">
-                <label for="basic-url" class="form-label">Vali linnaosa</label>
-                <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
-            </div>
+
             <div class="col">
                 <div class="container">
                     <div class="row mt-4 mb-3" v-for="studio in studios" :key="studio.studioId">
-                        <div class="col">
-                            <h2 @click="activateModal(studio.studioId)">{{ studio.studioName }}</h2>
+                        <div class="col col-7">
+                            <h4 @click="activateModal(studio.studioId)">{{ studio.studioName }}</h4>
 
                         </div>
                         <div class="col img-wrapper">
@@ -34,6 +38,7 @@
             </div>
 
         </div>
+    </div>
     </div>
 
 </template>

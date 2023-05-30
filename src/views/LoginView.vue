@@ -2,7 +2,7 @@
 
 
     <div class="container">
-        <div class="row mb-5">
+        <div class="card" style="width: 90rem; background: goldenrod;">
             <div class="col">
                 <h1>Tallinna Fotostuudiod</h1>
             </div>
@@ -10,7 +10,7 @@
         <div @keydown.enter="login" class="row mb-5 justify-content-center">
             <div class="col col-3">
 
-                <div class="mb-3">
+                <div class="mt-5">
                     <label for="username" class="form-label">Kasutajanimi</label>
                     <input v-model="username" class="form-control" id="username" aria-describedby="emailHelp">
 

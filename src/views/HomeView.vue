@@ -1,20 +1,18 @@
 <template>
-  <div class="home">
-      <div class="container">
-          <div class="row mb-5">
+
+  <div class="home row mb-xxl-5 justify-content-center ">
+      <div class="card" style="width: 90rem; background: goldenrod;">
               <div class="col">
                   <h1>Tallinna Fotostuudiod</h1>
               </div>
           </div>
-          <div class="row">
+          <div class="row mt-5 ">
               <div class="col">
-                  <h3 @click="toStudioRooms" >Fotostuudiod rentimiseks</h3>
+                  <h2 @click="toStudioRooms" >Fotostuudiod rentimiseks</h2>
 
               </div>
           </div>
       </div>
-
-  </div>
 </template>
 
 <script>

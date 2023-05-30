@@ -32,7 +32,9 @@
             </div></div>
             <div class="col col-2"><div class="input-group mb-3">
                 <input v-model="startDate" type="date" class="form-control" aria-describedby="basic-addon1">
-            </div></div>
+            </div>
+                <button type="button" class="btn btn-dark">Kuva vabu aegu</button>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -55,6 +57,7 @@
         </div>
     </div>
     </div>
+    <button @click="navigateToStudiosView" type="button" class="btn btn-dark">Tagasi</button> <button @click="navigateToUserStudioPaymentView" type="button" class="btn btn-dark">Broneeri</button>
 </template>
 
 <script>
@@ -69,7 +72,20 @@ export default {
 
     data(){
         return{
+            studioId: Number(useRoute().query.studioId),
+            studioName: String(useRoute().query.studioName),
         }
+    },
+
+    methods:{
+        navigateToUserStudioPaymentView(studioId){
+            router.push({name:'paymentRoute',query:{studioId: studioId}})
+        },
+        navigateToStudiosView(studioId){
+            router.push({name:'studiosRoute',query:{studioId:studioId}})
+        }
+
+
     }
 }
 </script>

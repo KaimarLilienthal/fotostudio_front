@@ -11,6 +11,7 @@ import StudioGeneralSettingsView from "@/views/StudioGeneralSettingsView.vue";
 import StudioGeneralAvailabilityView from "@/views/StudioGeneralAvailabilityView.vue";
 import StudioGeneralReservationView from "@/views/StudioGeneralReservationView.vue";
 import UserStudioBookingView from "@/views/UserStudioBookingView.vue";
+import UserStudioPaymentView from "@/views/UserStudioPaymentView.vue";
 
 const routes = [
   {
@@ -73,6 +74,12 @@ const routes = [
     name:'bookingRoute',
     component: UserStudioBookingView
 },
+  {
+    path: '/studio/studio-payment',
+    name:'paymentRoute',
+    component: UserStudioPaymentView
+  },
+
 ]
 
 const router = createRouter({
