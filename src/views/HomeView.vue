@@ -1,14 +1,16 @@
 <template>
 
   <div class="home row mb-xxl-5 justify-content-center ">
-      <div class="card" style="width: 90rem; background: goldenrod;">
+      <div class=" custom-card">
               <div class="col">
                   <h1>Tallinna Fotostuudiod</h1>
               </div>
           </div>
+      <div class="home row mb-xxl-5 justify-content-center ">
           <div class="row mt-5 ">
               <div class="col">
                   <h2 @click="toStudioRooms" >Fotostuudiod rentimiseks</h2>
+              </div>
 
               </div>
           </div>
@@ -24,8 +26,7 @@ export default {
   name: 'HomeView',
     methods: {
         toStudioRooms(){
-            alert('töötab')
-            router.push({name: 'userStudiosRoute'})
+            router.push({name: 'studiosRoute'})
         }
     }
 }

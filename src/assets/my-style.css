@@ -1,10 +1,14 @@
 .img-wrapper img {
     max-width: 100px; /* Adjust the width as per your requirement */
     height: auto;
+    border:0px;
+    border-radius:0px;
+
 }
 .img-wrapper1 img {
     max-width: 200px; /* Adjust the width as per your requirement */
     height: auto;
+
 }
 
 
@@ -48,7 +52,8 @@ body{
 }
 
 .card{
-    background: rgba(192,192,192,0.1);
+    background-color: rgba(218, 165, 32, 0.8);
+
     color: black;
     position: fixed; /* Positsiooni tüüp on fikseeritud */
     top: 30%; /* Ülemine paigutus on 10% */
@@ -59,3 +64,25 @@ body{
 
 
 }
+.custom-card{
+    background-color: rgba(218, 165, 32, 0.8);
+    color:black;
+    width: 50rem;
+    height: 8vh;
+}
+
+.container {
+    background-color: rgba(123,214,110,0.67) ;
+    border-radius:0px;
+    padding: 50px;
+    margin-top: 10px;
+    background-color: rgba(218, 165, 32, 0.6);
+    color: black;
+}
+
+
+
+
+
+
+

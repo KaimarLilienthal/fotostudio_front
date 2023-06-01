@@ -1,14 +1,13 @@
 <template>
 
 
-    <div class="container">
-        <div class="card" style="width: 90rem; background: goldenrod;">
+        <div class="home col-12 custom-card justify-content-center" >
             <div class="col">
                 <h1>Tallinna Fotostuudiod</h1>
             </div>
         </div>
         <div @keydown.enter="login" class="row mb-5 justify-content-center">
-            <div class="col col-3">
+            <div class="row col-3">
 
                 <div class="mt-5">
                     <label for="username" class="form-label">Kasutajanimi</label>
@@ -30,7 +29,6 @@
             </div>
         </div>
 
-    </div>
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
 

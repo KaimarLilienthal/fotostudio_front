@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container col-6">
         <div class="row mb-3">
             <div class="col">
                 <h1>Minu stuudiod</h1>
@@ -12,7 +12,7 @@
             </div>
 
         </div>
-        <div class="row">
+        <div class="row ">
             <div class="col">
 
                 <table class="table table-dark table-hover">

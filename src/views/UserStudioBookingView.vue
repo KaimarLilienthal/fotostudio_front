@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container">
+    <div class="container col-6">
         <div class="row mb-5">
             <div class="col">
                 <h1>{{ studioName }}</h1>
@@ -11,13 +11,13 @@
                 <h3>Broneeri</h3>
             </div>
         </div>
-        <div class="row mb-5">
-            <div class="col cols-4">
+        <div class="row mb-5 col-12">
+            <div class="col col-7">
                 <StudioExtrasSelection ref="studioExtrasSelectionRef" :studio-id="studioId"/>
             </div>
 
-            <div class="col cols-4">
-                <div><h1> Kuupäeva valik</h1></div>
+            <div class="col col-3">
+                <div><h3> Kuupäeva valik</h3></div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Algus</span>
                     <input v-model="bookingRequest.date" @change="startDateChange" type="date" id="startDateInput"
@@ -28,20 +28,21 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col col-4">
                 <StudioTimesSelection ref="studioTimesSelectionRef" :studio-id="studioId" :selected-date="bookingRequest.date"
-                                      @event-emit-times-are-available="setTimesAreAvailable"
+                                      @event-emit-times-are-available="setTimesAreAvailable"/>
 
-                />
+
             </div>
         </div>
-
+        <div class="col mt-5">
+        <button @click="navigateToStudiosView" type="button" class="btn btn-dark">Tagasi</button> <button v-if="timesAreAvailable" @click="postBookingRequest" type="button" class="btn btn-dark">Broneeri</button>
+        </div>
 
     </div>
 
-    <button @click="navigateToStudiosView" type="button" class="btn btn-dark">Tagasi</button>
-    <button v-if="timesAreAvailable" @click="postBookingRequest" type="button" class="btn btn-dark">Broneeri</button>
+
 </template>
 
 <script>
