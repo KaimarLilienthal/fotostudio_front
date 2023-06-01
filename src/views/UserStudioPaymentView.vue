@@ -29,17 +29,17 @@
             <div class="col col-3">
                 <div class="input-group mb-3">
 
-                    <input type="text" class="form-control" placeholder="Ees-ja perekonnanimi" aria-label="Username"
+                    <input v-model="customer.customerName" type="text" class="form-control" placeholder="Ees-ja perekonnanimi" aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group mb-3">
 
-                    <input type="text" class="form-control" placeholder="Telefon" aria-label="Username"
+                    <input v-model="customer.customerPhone" type="text" class="form-control" placeholder="Telefon" aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group mb-3">
 
-                    <input type="text" class="form-control" placeholder="E-mail" aria-label="Username"
+                    <input v-model="customer.customerEmail" type="text" class="form-control" placeholder="E-mail" aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
                 <div class="mt-5">
@@ -50,13 +50,15 @@
                     </label>
                 </div>
                 <div class="mt-3">
-                    <button @click="navigateToUserBookingView" type="submit" class="btn btn-dark">Tagasi</button> <button @click="" type="submit" class="btn btn-dark">Broneeri</button>
+                    <button @click="navigateToUserBookingView" type="submit" class="btn btn-dark">Tagasi</button>
+                    <button @click="postCustomerInfo" type="submit" class="btn btn-dark">Broneeri</button>
 
                 </div>
             </div>
         </div>
     </div>
-
+    <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
+    <DangerModal :message="errorMessage" ref="dangerModalRef" @event-danger=""/>
 </template>
 
 <script>
@@ -66,14 +68,18 @@ import router from "@/router";
 import {useRoute} from "vue-router";
 import SuccessPaymentModal from "@/components/modal/alertmodals/SuccessPaymentModal.vue";
 import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
+import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
+
 
 export default {
     name: "UserStudioPaymentView",
-    components: {SuccessModal, SuccessPaymentModal, DistrictDropdown, StudioImage},
+    components: {DangerModal, SuccessModal, SuccessPaymentModal, DistrictDropdown, StudioImage},
 
 
     data() {
         return {
+            errorMessage: '',
+            terms: false,
             successMessage: '',
             studioId: Number(useRoute().query.studioId),
             studioName: useRoute().query.studioName,
@@ -93,6 +99,11 @@ export default {
                         extraPrice: 0
                     }
                 ]
+            },
+            customer: {
+                customerName: '',
+                customerPhone: '',
+                customerEmail: ''
             }
 
         }
@@ -106,15 +117,40 @@ export default {
                 }
             ).then(response => {
                 this.booking = response.data
+
             }).catch(error => {
                 router.push({name: 'errorRoute'})
             })
         },
-        navigateToUserBookingView(studioId) {
-            router.push({name: 'bookingRoute', query: {studioId: studioId}})
+        navigateToUserBookingView() {
+            router.push({name: 'bookingRoute'})
         },
 
+        postCustomerInfo: function () {
+            if (this.customer.customerName === '' || this.customer.customerPhone === ''|| this.customer.customerEmail === ''){
+                this.errorMessage = 'Nime, telefoni ja e-maili täitmine on kohustuslikud!'
+                this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
+            } else if(this.terms === false) {
+                this.errorMessage = 'Nõustu tingimustega'
+                this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
+            } else {
+            this.$http.post("/customer", this.customer, {
+                    params: {
+                        bookingId: this.bookingId
+                    }
+                }
+            ).then(response => {
+                this.successMessage = 'Teie broneering on registreeritud!'
+                this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
 
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+            }
+        },
+        handleSuccessMessage(){
+            router.push({name: 'studiosRoute'})
+        }
     },
     beforeMount() {
         this.getBookingInformation()

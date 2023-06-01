@@ -33,3 +33,10 @@ export default {
 
 
 </script>
+
+<style>
+.home h2:hover {
+    color: gold;
+    cursor: pointer;
+}
+</style>

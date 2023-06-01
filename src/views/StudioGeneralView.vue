@@ -13,8 +13,8 @@
         </div>
     </div>
 
-
-    <div class="container col-6">
+<div @keydown.enter="postNewStudio" >
+    <div  class="container col-6">
         <div class="row mb-1 justify-content-center">
             <div class="col col-4">
                 <div class="input-group mb-3">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="container text-center col-6">
+    <div  class="container text-center col-6">
         <div class="row justify-content-center">
             <div class="col col-3">
                 <label for="basic-url" class="form-label">Aadress</label>
@@ -64,38 +64,40 @@
                 <label for="basic-url" class="form-label">Longtitude</label>
                 <div class="input-group mb-3">
                     <input v-model="studio.longtitude" type="text" class="form-control" placeholder="00.000000"
-                           aria-describedby="basic-addon1" :onkeypress="isNumeric">
+                           aria-describedby="basic-addon1" :onkeypress="isNumeric" readonly>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col col-3">
                     <label for="basic-url" class="form-label">Vali linnaosa</label>
-                    <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
+                    <DistrictDropdown ref="districtDropdownRef"
+                                      @event-emit-selected-district-id="setSelectedDistrictId"/>
                 </div>
                 <div class="col col-3 justify-content-center">
                     <label for="basic-url" class="form-label">Latitude</label>
                     <div class="input-group mb-3">
                         <input v-model="studio.latitude" type="text" class="form-control" placeholder="00.000000"
-                               aria-describedby="basic-addon1" :onkeypress="isNumeric">
+                               aria-describedby="basic-addon1" :onkeypress="isNumeric" readonly >
                     </div>
                 </div>
-                        <div class="row">
-                            <div class="col mt-4">
-                                <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
-                                    andmed
-                                </button>
-                                <button v-else @click="postNewStudio" type="button" class="btn btn-dark">Lisa
-                                    stuudio
-                                </button>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col mt-4">
+                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
+                            andmed
+                        </button>
+                        <button v-else @click="postNewStudio" type="button" class="btn btn-dark">Lisa
+                            stuudio
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
 
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
-    <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
+    <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger=""/>
 </template>
 
 <script>
@@ -109,7 +111,7 @@ import DangerModal from "@/components/modal/alertmodals/DangerModal.vue";
 
 export default {
     name: "StudioGeneralView",
-    components: {SuccessModal, DistrictDropdown, StudioImage, ImageInput,DangerModal},
+    components: {SuccessModal, DistrictDropdown, StudioImage, ImageInput, DangerModal},
     data() {
         return {
             isEdit: false,
@@ -131,7 +133,6 @@ export default {
                 message: '',
                 errorCode: 0
             },
-
 
 
         }
@@ -166,22 +167,24 @@ export default {
             ).then(response => {
                 this.successMessage = 'Uue Stuudio lisamine õnnestus'
                 this.$refs.successModalRef.$refs.modalTemplateRef.openModal()
+
             }).catch(error => {
                 this.errorResponse = error.response.data
                 if (this.errorResponse.errorCode === 555) {
                     this.message = this.errorResponse.message
+                    this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
+                } else if (this.studio.studioName === '' || this.studio.website === '' || this.studio.address === '' || this.studio.districtId === 0) {
+                    this.errorResponse.message = 'Stuudio nimi, Url, aadress ja linnaosa valiku täitmine on kohustuslikud!!!'
                     this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
                 } else {
                     router.push({name: 'errorRoute'})
                 }
             })
         },
-        handleSuccessMessage(){
+        handleSuccessMessage() {
             router.push({name: 'userStudiosRoute'})
         },
-        handleDangerMessage(){
 
-        },
 
         getStudioData: function () {
             this.$http.get("/studio/user-studio", {
@@ -219,10 +222,16 @@ export default {
             router.push({name: 'settingsRoute', query: {studioId: this.studioId, studioName: this.studio.studioName}})
         },
         navigateToAvailabilityView() {
-            router.push({name: 'availabilityRoute', query: {studioId: this.studioId, studioName: this.studio.studioName}})
+            router.push({
+                name: 'availabilityRoute',
+                query: {studioId: this.studioId, studioName: this.studio.studioName}
+            })
         },
         navigateToReservationView() {
-            router.push({name: 'reservationRoute', query: {studioId: this.studioId, studioName: this.studio.studioName}})
+            router.push({
+                name: 'reservationRoute',
+                query: {studioId: this.studioId, studioName: this.studio.studioName}
+            })
         },
 
     },
