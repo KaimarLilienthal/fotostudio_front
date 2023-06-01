@@ -13,6 +13,8 @@
             <p class="card-text">{{booking.bookingDate}}</p>
             <p class="card-text">kellaajad</p>
             <p v-for="hour in booking.hours" class="card-text">{{ hour.startHour }}:00-{{ hour.startHour + 1 }}:00</p>
+            <p class="card-text">lisateenused</p>
+            <p v-for="extra in booking.extraBookings" class="card-text">{{ extra.extraName }}   €{{ extra.extraPrice }}</p>
             <p class="card-text">Tunnihind: €{{booking.houPrice}}</p>
             <p class="card-text">Hind kokku: €{{ booking.totalPrice }}</p>
         </div>
