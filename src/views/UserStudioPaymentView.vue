@@ -14,7 +14,7 @@
             <p class="card-text">kellaajad</p>
             <p v-for="hour in booking.hours" class="card-text">{{ hour.startHour }}:00-{{ hour.startHour + 1 }}:00</p>
             <p class="card-text">lisateenused</p>
-            <p v-for="extra in booking.extraBookings" class="card-text">{{ extra.extraName }}   €{{ extra.extraPrice }}</p>
+            <p v-for="extra in booking.extraBookings" class="card-text">{{ extra.extraName }}:   €{{ extra.extraPrice }}</p>
             <p class="card-text">Tunnihind: €{{booking.houPrice}}</p>
             <p class="card-text">Hind kokku: €{{ booking.totalPrice }}</p>
         </div>
@@ -99,6 +99,11 @@ export default {
                         extraPrice: 0
                     }
                 ]
+            },
+            customer: {
+                customerName: '',
+                customerPhone: '',
+                customerEmail: ''
             }
 
         }
@@ -118,6 +123,18 @@ export default {
         },
         navigateToUserBookingView(studioId) {
             router.push({name: 'bookingRoute', query: {studioId: studioId}})
+        },
+        postCustomerInfo: function () {
+            this.$http.post("/customer", this.customer, {
+                    params: {
+                        bookingId: this.bookingId,
+                    }
+                }
+            ).then(response => {
+                router.push({name: 'studiousRoute'})
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
         },
 
 
