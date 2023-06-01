@@ -31,7 +31,7 @@
                             <StudioImage :image-data="studio.imageData"/>
                         </div>
                         <div class="col">
-                            <button @click="navigateToUserStudioBooking" type="button" class="btn btn-dark">broneeri</button>
+                            <button @click="navigateToUserStudioBooking(studio.studioId, studio.studioName)" type="button" class="btn btn-dark">broneeri</button>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,8 @@ export default {
                 router.push({name: 'errorRoute'})
             })
         },
-        navigateToUserStudioBooking(studioId){
-            router.push({name:'bookingRoute'})
+        navigateToUserStudioBooking: function (studioId, studioName) {
+            router.push({name: 'bookingRoute', query: {studioId: studioId, studioName: studioName}})
         },
     },
     beforeMount() {
