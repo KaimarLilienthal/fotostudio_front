@@ -2,61 +2,16 @@
 
     <Modal ref="modalRef" close-button-name="Sulge">
         <template #header>
-            Stuudio andmed
+            Stuudio lisateenused
         </template>
         <template #body>
-
-            <div class="container">
-                <div class="row">
+            <div  class="container">
+                <div v-for="extra in studioInfo.extras" :key="extra.id" class="row">
                     <div class="col">
-                        Stuudio lisad
-                    </div>
-                    <div class="col">
-                        pilt
+                        {{ extra.extraName }}
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        Valgustus
-                    </div>
-                    <div class="col">
-
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        SoftBox
-                    </div>
-                    <div class="col">
-
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        Taustad
-                    </div>
-                    <div class="col">
-
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        Kangad
-                    </div>
-                    <div class="col">
-
-                    </div>
-                </div>
-            </div>
-
         </template>
 
     </Modal>
