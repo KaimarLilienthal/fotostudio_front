@@ -10,9 +10,11 @@
         <div class="card-body">
             <h5 class="card-title">Valitud stuudio ja aeg</h5>
             <p class="card-text">{{ studioName }}</p>
-            <p class="card-text">päev ja kuupäev</p>
+            <p class="card-text">{{booking.bookingDate}}</p>
             <p class="card-text">kellaajad</p>
-            <p class="card-text">{{ booking.totalPrice }}</p>
+            <p v-for="hour in booking.hours" class="card-text">{{ hour.startHour }}:00-{{ hour.startHour + 1 }}:00</p>
+            <p class="card-text">Tunnihind: €{{booking.houPrice}}</p>
+            <p class="card-text">Hind kokku: €{{ booking.totalPrice }}</p>
         </div>
     </div>
     <div class="container">
