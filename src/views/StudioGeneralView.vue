@@ -1,6 +1,6 @@
 <template>
-    <div v-if="studioId !== 0" class="container">
-        <div class="row mb-5 justify-content-center">
+    <div v-if="studioId !== 0" class="container col-6">
+        <div class="row mb-1 justify-content-center">
             <div class="col col-2">
                 <button @click="navigateToSettingsView" type="button" class="btn btn-dark">Teenused</button>
             </div>
@@ -14,9 +14,8 @@
     </div>
 
 
-    <div class="container text-center">
-
-        <div class="row justify-content-center">
+    <div class="container col-6">
+        <div class="row mb-1 justify-content-center">
             <div class="col col-4">
                 <div class="input-group mb-3">
                     <input v-model="studio.studioName" type="text" class="form-control"
@@ -24,30 +23,22 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="container text-center">
-
+    <div class="container text-center col-6">
         <div class="row">
-            <div class="col mb-1">
+            <div class="col mb-5">
                 <div class="img-wrapper1">
                     <StudioImage :image-data="studio.imageData"/>
                 </div>
             </div>
-        </div>
-
-    </div>
-    <div class="container text-center">
-
-        <div class="row">
-            <div class="col mb-3">
-                <ImageInput ref="imageInputRef" @event-emit-base64="emitBase64"/>
+            <div class="row">
+                <div class="col col-12 justify-content-center">
+                    <ImageInput ref="imageInputRef" @event-emit-base64="emitBase64"/>
+                </div>
             </div>
         </div>
-
     </div>
-    <div class="container text-center">
-
+    <div class="container text-center col-6">
         <div class="row justify-content-center">
             <div class="col col-3">
                 <div class="input-group mb-3">
@@ -59,10 +50,8 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="container text-center">
-
+    <div class="container text-center col-6">
         <div class="row justify-content-center">
             <div class="col col-3">
                 <label for="basic-url" class="form-label">Aadress</label>
@@ -73,53 +62,37 @@
             </div>
             <div class="col col-3">
                 <label for="basic-url" class="form-label">Longtitude</label>
-
                 <div class="input-group mb-3">
                     <input v-model="studio.longtitude" type="text" class="form-control" placeholder="00.000000"
                            aria-describedby="basic-addon1" :onkeypress="isNumeric">
                 </div>
             </div>
-        </div>
-
-    </div>
-    <div class="container text-center">
-
-        <div class="row justify-content-center">
-            <div class="col col-3">
-                <label for="basic-url" class="form-label">Vali linnaosa</label>
-
-                <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
-            </div>
-            <div class="col col-3 justify-content-center">
-                <label for="basic-url" class="form-label">Latitude</label>
-                <div class="input-group mb-3">
-
-                    <input v-model="studio.latitude" type="text" class="form-control" placeholder="00.000000"
-                           aria-describedby="basic-addon1" :onkeypress="isNumeric">
+            <div class="row justify-content-center">
+                <div class="col col-3">
+                    <label for="basic-url" class="form-label">Vali linnaosa</label>
+                    <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
                 </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="container text-center">
-
-        <div class="row">
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
-                            andmed
-                        </button>
-                        <button v-else @click="postNewStudio" type="button" class="btn btn-dark">Lisa
-                            stuudio
-                        </button>
+                <div class="col col-3 justify-content-center">
+                    <label for="basic-url" class="form-label">Latitude</label>
+                    <div class="input-group mb-3">
+                        <input v-model="studio.latitude" type="text" class="form-control" placeholder="00.000000"
+                               aria-describedby="basic-addon1" :onkeypress="isNumeric">
                     </div>
                 </div>
-
+                        <div class="row">
+                            <div class="col mt-4">
+                                <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
+                                    andmed
+                                </button>
+                                <button v-else @click="postNewStudio" type="button" class="btn btn-dark">Lisa
+                                    stuudio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-    </div>
 
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>

@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="row mb-5 justify-content-center">
+    <div class="container col-6">
+        <div class="row justify-content-center">
             <div class="col col-2">
                 <button @click="navigateToGeneralView" type="button" class="btn btn-dark">Üldised sätted</button>
             </div>
@@ -12,31 +12,29 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row mb-5">
+    <div class="container col-6">
+        <div class="row mb-md-5">
             <div class="col">
                 <h1>{{ studioName }}</h1>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row mb-5 justify-content-center">
+        <div class="row justify-content-center">
             <div class="col col-2">
                 <h5>Tunni hind</h5>
             </div>
             <div class="col col-2">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">€</span>
                     <input v-model="studioPrice.hourPrice" type="text" class="form-control" placeholder="" aria-label=""
                            aria-describedby="basic-addon1" :onkeypress="isNumeric">
                 </div>
             </div>
-            <div class="col col-3">
+            <div class="col col-2">
                 <button @click="patchStudioHourPrice" type="button" class="btn btn-dark">Salvesta</button>
             </div>
         </div>
     </div>
-    <div class="container justify-content-center">
+    <div class="container col-6">
         <div class="row justify-content-center ">
             <div class="col col-2">
                 <ExtraDropdown ref="extraDropdownRef" @event-emit-selected-extra-id="setSelectedExtraId"/>
@@ -51,33 +49,34 @@
             <div class="col col-3">
                 <button @click="setStudioExtra" type="button" class="btn btn-dark">Lisa teenuste hulka</button>
             </div>
+            <div class="col col-7 mt-5">
+
+                <table class="table table-dark table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Lisa teenused</th>
+                        <th scope="col">Hind</th>
+                        <th scope="col">Prügikast</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="extra in extras" :key="extra.studioId">
+                        <th>{{ extra.extraName }}</th>
+                        <td>{{ extra.extraPrice }}</td>
+                        <th>
+                            <font-awesome-icon @click="deleteStudioExtra(extra.studioId, extra.extraId)" class="hoverable-link" :icon="['fas', 'trash']"/>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
         </div>
     </div>
 
     <div class="row justify-content-center">
-        <div class="col col-5">
 
-            <table class="table table-dark table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Lisa teenused</th>
-                    <th scope="col">Hind</th>
-                    <th scope="col">Prügikast</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="extra in extras" :key="extra.studioId">
-                    <th>{{ extra.extraName }}</th>
-                    <td>{{ extra.extraPrice }}</td>
-                    <th>
-                        <font-awesome-icon @click="deleteStudioExtra(extra.studioId, extra.extraId)" class="hoverable-link" :icon="['fas', 'trash']"/>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
-
-
-        </div>
     </div>
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>

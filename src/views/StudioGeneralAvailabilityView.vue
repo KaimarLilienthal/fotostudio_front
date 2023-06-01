@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="row mb-5 justify-content-center">
+    <div class="container col-6">
+        <div class="row mb-1 justify-content-center">
             <div class="col col-2">
                 <button @click="navigateToGeneralView" type="button" class="btn btn-dark">Üldised sätted</button>
             </div>
@@ -11,11 +11,11 @@
                 <button @click="navigateToReservationView" type="button" class="btn btn-dark">Broneeringud</button>
             </div>
         </div>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col">
-                    <h1>{{ studioName }}</h1>
-                </div>
+    </div>
+    <div class="container col-6">
+        <div class="row mb-5">
+            <div class="col">
+                <h1>{{ studioName }}</h1>
             </div>
         </div>
         <div class="row mb-12 justify-content-center">
@@ -35,49 +35,46 @@
                     <input v-model="endDate" type="date" id="endDateInput" class="form-control"
                            aria-describedby="basic-addon1" >
                 </div>
+                <div class="row mb-3 justify-content-center">
+                    <h4>Vali kellaaja algus ja lõpp</h4>
+                    <div class="col col-12">
+                        <label for="time">Sisesta täistunnid</label>
+                        <div id="app" class="input-group mb-1">
+
+                            <span class="input-group-text" id="basic-addon1">Algus</span>
+                            <input v-model="startHour" type="time" id="start" class="form-control"
+                                   aria-describedby="basic-addon1" step="3600">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1 justify-content-center">
+                    <div class="col col-12">
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">Lõpp</span>
+                            <input v-model="endHour" type="time" id="stop" class="form-control"
+                                   aria-describedby="basic-addon1" step="3600">
+                        </div>
+                        <div class="col mt-3">
+                            <button @click="show" type="button" class="btn btn-dark">Lisa ajad</button>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mb-12 justify-content-center">
-        <h4>Vali kellaaja algus ja lõpp</h4>
-
-        <div class="col col-2">
-            <label for="time">Sisesta täistunnid</label>
-            <div id="app" class="input-group mb-3">
-
-                <span class="input-group-text" id="basic-addon1">Algus</span>
-                <input v-model="startHour" type="time" id="start" class="form-control"
-                       aria-describedby="basic-addon1" step="3600">
-            </div>
-        </div>
-    </div>
-    <div class="row mb-5 justify-content-center">
-        <div class="col col-2">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Lõpp</span>
-                <input v-model="endHour" type="time" id="stop" class="form-control"
-                       aria-describedby="basic-addon1" step="3600">
-
-            </div>
-            <div class="col mb-12">
-                <button @click="show" type="button" class="btn btn-dark">Lisa ajad</button>
-            </div>
-
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
+                <div class="container col-6">
+              <div class="row">
+                 <div class="col ">
             <table class=" table table-dark table-hover">
                 <thead>
                 <tr>
-
                     <th scope="col">Kuupäev alates</th>
                     <th scope="col">Kuupäev kuni</th>
                     <th scope="col">Kellaaeg alates</th>
                     <th scope="col">Kellaaeg kuni</th>
                     <th scope="col">kustuta</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -98,7 +95,7 @@
     <SuccessModal :message="successMessage" ref="successModalRef" @event-success="handleSuccessMessage"/>
     <AvailabilityDeleteModal ref="availabilityDeleteModalRef" @event-delete-availability="deleteAvailability"/>
     <DangerModal :message="errorResponse.message" ref="dangerModalRef" @event-danger="handleDangerMessage"/>
-
+</div>
 </template>
 
 <script>

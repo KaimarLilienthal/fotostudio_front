@@ -1,29 +1,25 @@
 <template>
 
     <StudioPreviewModal ref="studioPreviewModalRef"/>
-    <div class="card" style="width: 90rem; background: goldenrod;">
-        <div class="col">
+    <div class="col-12 custom-card justify-content-center">
+        <div class="col col-12">
             <h1>Tallinna Fotostuudiod</h1>
         </div>
     </div>
 
-    <div class="row mb-xxl-5 justify-content-center;">
-        <div class="row mt-5 card" style="width: 90rem; background: goldenrod;">
-            <div class="row">
-
-                <div class="col col-2 mt-3">
-
-                    <label for="basic-url" class="form-label">Vali linnaosa</label>
+    <div class="row justify-content-center;">
+        <div class="row col-12 justify-content-center ">
+            <div class="row mt-5 justify-content-center">
+            </div>
+                <div class="col col-5">
+                    <div class="row col-3">
+                    <label for="basic-url" class="form-label row-cols-4">Vali linnaosa</label>
                     <DistrictDropdown ref="districtDropdownRef" @event-emit-selected-district-id="setSelectedDistrictId"/>
                 </div>
-
-        </div>
-    <div class="container">
-
-            <div class="col">
+            <div class="col mb-5">
                 <div class="container">
-                    <div class="row mt-4 mb-3" v-for="studio in studios" :key="studio.studioId">
-                        <div class="col col-7">
+                    <div class="row mb-5" v-for="studio in studios" :key="studio.studioId">
+                        <div class="col col-8">
                             <h4 @click="activateModal(studio.studioId)">{{ studio.studioName }}</h4>
 
                         </div>
@@ -36,7 +32,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     </div>
@@ -98,3 +93,10 @@ export default {
     }
 }
 </script>
+
+<style scooped>
+.custom-card{
+    background-color: rgba(218, 165, 32, 0.8);
+    color:black;
+}
+</style>

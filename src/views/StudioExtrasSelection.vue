@@ -1,11 +1,15 @@
 <template>
-    <h1>Teenuste info</h1>
+    <h2>Teenuste info</h2>
     <div class="row" v-for="studioExtra in studioExtras" :key="studioExtra.extraId">
-        <div class="col">
+
+        <div class="col d-flex justify-content-center">
+
+        <div class="col-3">
             <div>{{ studioExtra.extraName }} - €{{ studioExtra.extraPrice }}</div>
         </div>
-        <div class="col">
+        <div class="col-3">
             <input v-model="studioExtra.isSelected" type="checkbox">
+        </div>
         </div>
     </div>
 </template>
