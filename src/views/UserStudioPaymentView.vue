@@ -42,12 +42,8 @@
                     <input v-model="customer.customerEmail" type="text" class="form-control" placeholder="E-mail" aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
-                <div class="mt-5">
-
-                    <input v-model="terms" type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">
-                        Nõustun <a @click="" href="#">kasutajatingimustega</a>
-                    </label>
+                <div class="form-check form-check-inline mt-3">
+                    <input v-model="terms" type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">Nõustun <a @click="conditions" href="#">kasutajatingimustega</a></label>
                 </div>
                 <div class="mt-3">
                     <button @click="navigateToUserBookingView" type="submit" class="btn btn-dark">Tagasi</button>
@@ -109,6 +105,10 @@ export default {
         }
     },
     methods: {
+        conditions() {
+            this.errorMessage = 'Arve saab maksta kohapeal sularahas.'
+            this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
+        },
         getBookingInformation: function () {
             this.$http.get("/booking/payment", {
                     params: {
