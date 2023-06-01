@@ -170,6 +170,7 @@ export default {
         },
         patchStudioHourPrice: function () {
             this.studioPrice.hourPrice = Number(this.studioPrice.hourPrice)
+            sessionStorage.setItem('hourPrice', Number(this.studioPrice.hourPrice))
 
             this.$http.patch("/studio/price", this.studioPrice, {
                     params: {

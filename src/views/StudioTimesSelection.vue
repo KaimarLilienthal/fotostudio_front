@@ -20,6 +20,7 @@ export default {
     },
     data() {
         return {
+            hourPrice: 0,
             headerTitle: '',
             timesAreAvailable : false,
             studioTimes: [
@@ -44,7 +45,7 @@ export default {
                 this.timesAreAvailable = this.studioTimes.length > 0
                 this.$emit('event-emit-times-are-available', this.timesAreAvailable)
                 if (this.timesAreAvailable){
-                    this.headerTitle = 'Saadaval tunnid:'
+                    this.headerTitle = 'Saadaval tunnid: '
                 } else {
                     this.headerTitle = 'Selleks kuupäevaks pole saadaval ühtegi vaba aega!'
                 }

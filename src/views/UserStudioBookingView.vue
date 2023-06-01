@@ -57,6 +57,7 @@ export default {
 
     data() {
         return {
+
             timesAreAvailable: false,
             studioName: String(useRoute().query.studioName),
             studioId: Number(useRoute().query.studioId),
@@ -94,8 +95,8 @@ export default {
         startDateChange() {
             this.$refs.studioTimesSelectionRef.getStudioTimesFromBackend()
         },
-        navigateToUserStudioPaymentView(studioId) {
-            router.push({name: 'paymentRoute', query: {studioId: studioId}})
+        navigateToUserStudioPaymentView(bookingId) {
+            router.push({name: 'paymentRoute', query: {studioId: this.studioId, studioName: this.studioName, bookingId: bookingId}})
         },
         navigateToStudiosView(studioId) {
             router.push({name: 'studiosRoute', query: {studioId: studioId}})
@@ -110,7 +111,8 @@ export default {
                     }
                 }
             ).then(response => {
-                this.navigateToUserStudioPaymentView()
+                let bookingId = response.data
+                this.navigateToUserStudioPaymentView(bookingId)
             }).catch(error => {
                 router.push({name: 'errorRoute'})
             })

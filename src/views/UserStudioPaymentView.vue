@@ -9,10 +9,10 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Valitud stuudio ja aeg</h5>
-            <p class="card-text">Stuudio nimi</p>
+            <p class="card-text">{{ studioName }}</p>
             <p class="card-text">päev ja kuupäev</p>
-            <p class="card-text">kellaaeg</p>
-            <p class="card-text">hind</p>
+            <p class="card-text">kellaajad</p>
+            <p class="card-text">{{ booking.totalPrice }}</p>
         </div>
     </div>
     <div class="container">
@@ -26,33 +26,37 @@
         <div class="col col-3">
             <div class="input-group mb-3">
 
-                <input type="text" class="form-control" placeholder="Ees-ja perekonnanimi" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Ees-ja perekonnanimi" aria-label="Username"
+                       aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
 
-                <input type="text" class="form-control" placeholder="Telefon" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Telefon" aria-label="Username"
+                       aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
 
-                <input type="text" class="form-control" placeholder="E-mail" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="E-mail" aria-label="Username"
+                       aria-describedby="basic-addon1">
             </div>
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col">
-                <h2>Makseviis</h2>
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col">
+                        <h2>Makseviis</h2>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="mt-3">
+            <div class="mt-3">
 
-        <input v-model="terms" type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">
-            Nõustun <a @click="conditions" href="#">kasutajatingimustega</a>
-        </label>
-    </div>
-    <div class="mt-3">
-    <button @click="navigateToUserBookingView" type="submit" class="btn btn-dark">Tagasi</button> <button @click="" type="submit" class="btn btn-dark">Broneeri</button>
-    </div>
+                <input v-model="terms" type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">
+                    Nõustun <a @click="" href="#">kasutajatingimustega</a>
+                </label>
+            </div>
+            <div class="mt-3">
+                <button @click="navigateToUserBookingView" type="submit" class="btn btn-dark">Tagasi</button>
+                <button @click="" type="submit" class="btn btn-dark">Broneeri</button>
+            </div>
         </div>
     </div>
 </template>
@@ -69,24 +73,56 @@ export default {
     name: "UserStudioPaymentView",
     components: {SuccessModal, SuccessPaymentModal, DistrictDropdown, StudioImage},
 
-    data(){
-        return{
+
+    data() {
+        return {
+            successMessage: '',
             studioId: Number(useRoute().query.studioId),
-            studioName: String(useRoute().query.studioName)
+            studioName: useRoute().query.studioName,
+            bookingId: Number(useRoute().query.bookingId),
+            booking: {
+                bookingDate: '',
+                houPrice: 0,
+                totalPrice: 0,
+                hours: [
+                    {
+                        startHour: 0
+                    }
+                ],
+                extraBookings: [
+                    {
+                        extraName: '',
+                        extraPrice: 0
+                    }
+                ]
+            }
+
         }
     },
-    methods:{
-        navigateToUserBookingView(studioId){
-            router.push({name:'bookingRoute',query:{studioId: studioId}})
-    },
-    successMessage: ''
+    methods: {
+        getBookingInformation: function () {
+            this.$http.get("/booking/payment", {
+                    params: {
+                        bookingId: this.bookingId
+                    }
+                }
+            ).then(response => {
+                this.booking = response.data
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+        navigateToUserBookingView(studioId) {
+            router.push({name: 'bookingRoute', query: {studioId: studioId}})
+        },
 
+
+    },
+    beforeMount() {
+        this.getBookingInformation()
     }
 
 
 }
 </script>
 
-<style scoped>
-
-</style>
