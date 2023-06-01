@@ -82,6 +82,8 @@
                 </div>
                 <div class="row">
                     <div class="col mt-4">
+                        <button  @click="navigateBack" type="button" class="btn btn-dark">Tagasi
+                        </button>
                         <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
                             andmed
                         </button>
@@ -233,6 +235,10 @@ export default {
                 query: {studioId: this.studioId, studioName: this.studio.studioName}
             })
         },
+        navigateBack(){
+            router.push({name: 'userStudiosRoute'})
+
+        }
 
     },
     mounted() {

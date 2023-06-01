@@ -8,7 +8,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button @click="navigateToStudioGeneralView" type="button" class="btn btn-dark">Lisa stuudiod</button>
+                <button @click="navigateToStudioGeneralView" type="button" class="btn btn-dark">Lisa stuudio</button>
             </div>
 
         </div>
@@ -34,7 +34,7 @@
                                 <StudioImage :image-data="studio.imageData"/>
                             </div>
                         </td>
-                        <td>{{studio.studioId}}
+                        <td>
                             <font-awesome-icon @click="navigateToChangeStudioGeneralView(studio.studioId)" class="hoverable-link" :icon="['fas', 'pen-to-square']"/>
                         </td>
                         <td>
