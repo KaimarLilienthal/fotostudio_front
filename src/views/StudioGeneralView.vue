@@ -81,13 +81,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col mt-4">
-                        <button  @click="navigateBack" type="button" class="btn btn-dark">Tagasi
+                    <div class="col mt-4" >
+                        <button   @click="navigateBack" type="button" class="btn btn-dark">Tagasi
                         </button>
-                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark">Muuda
+
+                        <button v-if="isEdit" @click="putChangeStudioData" type="button" class="btn btn-dark" style="margin-left: 10px" >Muuda
                             andmed
                         </button>
-                        <button v-else @click="postNewStudio" type="button" class="btn btn-dark">Lisa
+                        <button v-else @click="postNewStudio" type="button" class="btn btn-dark" style="margin-left: 10px" >Lisa
                             stuudio
                         </button>
                     </div>

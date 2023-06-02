@@ -27,10 +27,10 @@
                     <div class="row mb-1 justify-content-center ">
                         <div class="col col-4">
                             <th scope="col">Kuupäev</th>
+                            <th scope="col">Kellaaeg</th>
                             <th scope="col">Klient</th>
                             <th scope="col">e-mail</th>
                             <th scope="col">Telefon</th>
-                            <th scope="col">Tühista</th>
                             <th scope="col"></th>
                         </div>
                     </div>
@@ -64,6 +64,13 @@ export default {
     components: '',
     data(){
         return{
+            reservations: {
+              bookingDate: '',
+                bookingTime: '',
+              customer: '',
+              email: '',
+              phone: '',
+            },
             studioId: Number(useRoute().query.studioId),
             studioName: String(useRoute().query.studioName),
         }
@@ -78,7 +85,7 @@ export default {
         },
         navigateToSettingsView(){
             router.push({name:'settingsRoute',query:{studioId: this.studioId, studioName: this.studioName}})
-        }
+        },
 
 
     }

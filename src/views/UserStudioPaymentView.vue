@@ -106,7 +106,12 @@ export default {
     },
     methods: {
         conditions() {
-            this.errorMessage = 'Arve saab maksta kohapeal sularahas.'
+            this.errorMessage = '* Arve saab maksta kohapeal sularahas.  ' +
+                '* Stuudiosse mahub korraga pildistama kuni 5 liikmeline pere   ' +
+                '* Palun tule fotosessioonile 5 minutit varem, et jõuaksid rahulikult lahti riietuda ning stuudio ja fotograafiga tutvuda.   ' +
+                '* Palun ära hiline! Hilinenud aega ei kompenseerida, sest peale Sind on fotograafil veel fotosessioone.   ' +
+                '* Lapsevanemad vastutavad stuudios olles terve sessiooni vältel oma laste käitumise eest.   ' +
+                '* Rikutud või lõhutud inventar, rekvisiidid või tehnika kompenseerib broneerija.   '
             this.$refs.dangerModalRef.$refs.modalTemplateRef.openModal()
         },
         getBookingInformation: function () {
