@@ -64,7 +64,7 @@
                         <th>{{ extra.extraName }}</th>
                         <td>{{ extra.extraPrice }}</td>
                         <th>
-                            <font-awesome-icon @click="deleteStudioExtra(extra.studioId, extra.extraId)" class="hoverable-link" :icon="['fas', 'trash']"/>
+                            <font-awesome-icon @click="deleteStudioExtra(extra.extraId)" class="hoverable-link" :icon="['fas', 'trash']"/>
                         </th>
                     </tr>
                     </tbody>
@@ -184,10 +184,10 @@ export default {
             })
         },
 
-        deleteStudioExtra: function (studioId, extraId) {
+        deleteStudioExtra: function (extraId) {
             this.$http.delete("/extra/studio-extra", {
                     params: {
-                        studioId: studioId,
+                        studioId: this.studioId,
                         extraId: extraId
                     }
                 }
