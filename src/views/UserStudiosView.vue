@@ -79,7 +79,6 @@ export default {
                 }
             ]
 
-
         }
     },
     methods: {
@@ -121,6 +120,7 @@ export default {
                     const errorResponseBody = error.response.data
                 })
         },
+
 
         handleDelete(studioId) {
             this.studios.studioId = studioId
