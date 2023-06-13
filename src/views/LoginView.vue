@@ -86,8 +86,8 @@ export default {
                 if (this.loginResponse.roleName === "studio") {
                     router.push({name: 'userStudiosRoute'})
                 } else {
-                    // todo: vaja suunata adminni teele
-                    router.push({name: 'userStudiosRoute'})
+                    if (this.loginResponse.roleName === "admin")
+                    router.push({name: 'studiosRoute'})
                 }
 
 

@@ -26,7 +26,10 @@
                         <div class="col img-wrapper">
                             <StudioImage :image-data="studio.imageData"/>
                         </div>
-                        <div class="col">
+                        <td v-if="roleName === 'admin' " class="col">
+                            <font-awesome-icon @click="handleDelete(studio.studioId)" class="hoverable-link" :icon="['fas', 'trash']" />
+                        </td>
+                        <div v-else class="col">
                             <button @click="navigateToUserStudioBooking(studio.studioId, studio.studioName)" type="button" class="btn btn-dark">broneeri</button>
                         </div>
                     </div>
@@ -35,7 +38,7 @@
         </div>
     </div>
     </div>
-
+    <StudioDeleteModal ref="studioDeleteModalRef" @event-update-studios-list="sendStudioDeleteRequest"/>
 </template>
 
 <script>
@@ -43,14 +46,18 @@ import DistrictDropdown from "@/components/DistrictDropdown.vue";
 import router from "@/router";
 import StudioImage from "@/components/StudioImage.vue";
 import StudioPreviewModal from "@/components/modal/StudioPreviewModal.vue";
+import SuccessModal from "@/components/modal/alertmodals/SuccessModal.vue";
+import StudioDeleteModal from "@/components/modal/StudioDeleteModal.vue";
 
+let StudiosDeleteModal;
 export default {
     name: "StudiosView",
-    components: {StudioPreviewModal, StudioImage, DistrictDropdown},
+    components: {StudioDeleteModal, SuccessModal, StudioPreviewModal, StudioImage, DistrictDropdown},
     data() {
         return {
-
+            roleName: sessionStorage.getItem('roleName'),
             selectedDistrictId: 0,
+            successMessage: '',
             studios: [
                 {
                     studioName: '',
@@ -86,6 +93,22 @@ export default {
         },
         navigateToUserStudioBooking: function (studioId, studioName) {
             router.push({name: 'bookingRoute', query: {studioId: studioId, studioName: studioName}})
+        },
+        sendStudioDeleteRequest: function () {
+            this.$http.delete("/studio", {
+                    params: {
+                        studioId: this.studios.studioId
+                    }
+                }
+            ).then(response => {
+                this.getAllActiveStudios()
+            }).catch(error => {
+                router.push({name: 'errorRoute'})
+            })
+        },
+        handleDelete(studioId) {
+            this.studios.studioId = studioId
+            this.$refs.studioDeleteModalRef.$refs.modalRef.openModal()
         },
     },
     beforeMount() {

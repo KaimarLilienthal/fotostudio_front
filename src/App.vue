@@ -11,11 +11,14 @@
 
 
 
-      <template v-else>
+      <template v-if="userId > 1">
           <router-link to="/user-studios">Minu stuudiod</router-link>
           |
 
 
+          <router-link to="#" @click="handleLogout">Logi välja</router-link>
+      </template>
+      <template v-if ="userId == 1">
           <router-link to="#" @click="handleLogout">Logi välja</router-link>
       </template>
 
